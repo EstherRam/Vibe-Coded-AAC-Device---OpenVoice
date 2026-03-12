@@ -93,10 +93,11 @@
         }
 
         .nav-icon {
-            height: 20px;
+            height: 26px;
             width: auto;
-            margin-right: 8px;
+            margin-right: 10px;
             pointer-events: none;
+            vertical-align: middle;
         }
 
         .btn-info-nav {
@@ -274,10 +275,6 @@
     <button class="tab" data-mode="want" onclick="changeMode('want')">
         <img src="icons/Want.svg" class="nav-icon" alt="I want">
         I want
-    </button>
-    <button class="tab" data-mode="help" onclick="changeMode('help')">
-        <img src="icons/Help.svg" class="nav-icon" alt="Help">
-        Help
     </button>
     <button class="btn-info-nav" onclick="openInfoModal()">
         <img src="icons/Help.svg" class="nav-icon" alt="Info">
@@ -518,7 +515,6 @@
         const l = document.getElementById('addLabelInput').value;
         let i = document.getElementById('addIconInput').value;
         if(l && currentAddSection) {
-            // Ensure first letter of input icon is capitalized
             i = i.charAt(0).toUpperCase() + i.slice(1);
             if (!i.endsWith('.svg')) i += '.svg';
             currentAddSection.items.push({l, i, c: currentAddSection.items[0]?.c || 'blue'});
