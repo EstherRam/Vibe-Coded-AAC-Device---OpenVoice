@@ -62,11 +62,10 @@
             object-fit: contain;
         }
 
-        .toggle-group { 
-            display: flex; 
-            gap: 7px;
-        }
-
+.toggle-group { 
+    display: flex; 
+    gap: 3px;
+}
         .toggle-btn {
             width: 44px; height: 44px; border-radius: 12px;
             border: none;
@@ -143,7 +142,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;   /* KEY CHANGE */
+    justify-content: center;
     cursor: pointer;
     position: relative;
     color: white;
@@ -151,26 +150,32 @@
     user-select: none;
     -webkit-user-select: none;
     overflow: hidden;
-    padding-top: 28px;             /* pushes icon down */
+    padding: 10px 6px 6px 6px;
 }
 
+.tile-icon {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+        
 .tile img {
-    width: 100px;
-    height: 100px;
+    width: 120%;
+    height: 120%;
     object-fit: contain;
-    margin-top: 18px;
-    margin-bottom: 0px;
     pointer-events: none;
 }
-
+        
 .tile span {
     font-size: 24px;
     font-weight: 400;
-    margin-top: 0;
-    margin-bottom: 16px;
+    margin-top: 2px;
+    margin-bottom: 6px;
     z-index: 2;
 }
-
         /* HELP GRID */
         .grid.help-grid {
             grid-template-columns: repeat(auto-fit, 327px);
