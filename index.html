@@ -7,7 +7,7 @@
 
 <style>
 
-:root {
+:root{
 --tile-blue:#2755E2;
 --tile-purple:#7F22D9;
 --tile-teal:#188074;
@@ -36,7 +36,7 @@
 --nav-inactive:#364C65;
 --text-main:#121827;
 --text-sub:#4B5563;
---nav-shadow:0px 4px 11.9px rgba(0,0,0,0.25);
+--nav-shadow:0px 4px 11.9px rgba(0,0,0,.25);
 }
 
 body{
@@ -386,116 +386,99 @@ Help
 
 <script>
 
-const baseIconPath="./icons/"
+const baseIconPath="./icons/";
 
-let mode="core"
+let mode="core";
 
 const vocab={
-
 core:[
 {title:"Question Words",items:[
-{l:"What",i:"What.svg",c:"blue"},
-{l:"Where",i:"Where.svg",c:"blue"},
-{l:"When",i:"When.svg",c:"blue"},
-{l:"Who",i:"Who.svg",c:"blue"},
-{l:"Why",i:"Why.svg",c:"blue"},
-{l:"How",i:"How.svg",c:"blue"}
+{l:"What",i:"what.svg",c:"blue"},
+{l:"Where",i:"where.svg",c:"blue"},
+{l:"When",i:"when.svg",c:"blue"},
+{l:"Who",i:"who.svg",c:"blue"},
+{l:"Why",i:"why.svg",c:"blue"},
+{l:"How",i:"how.svg",c:"blue"}
 ]},
-
 {title:"People / Places",items:[
-{l:"I",i:"I.svg",c:"blue"},
-{l:"You",i:"You.svg",c:"blue"},
-{l:"We",i:"We.svg",c:"blue"},
-{l:"They",i:"They.svg",c:"blue"},
-{l:"She",i:"She.svg",c:"blue"},
-{l:"Time",i:"Time.svg",c:"blue"},
-{l:"Friend",i:"Freind.svg",c:"blue"},
-{l:"School",i:"School.svg",c:"blue"},
-{l:"Home",i:"Home.svg",c:"blue"},
-{l:"Family",i:"Family.svg",c:"blue"},
-{l:"Doctor",i:"Doctor.svg",c:"blue"}
-]},
-
-{title:"Needs & Wants",items:[
-{l:"Want",i:"Want.svg",c:"purple"},
-{l:"Need",i:"Need.svg",c:"purple"},
-{l:"Like",i:"Like.svg",c:"purple"},
-{l:"Have",i:"Have.svg",c:"purple"},
-{l:"See",i:"See.svg",c:"purple"},
-{l:"Go",i:"Go.svg",c:"purple"},
-{l:"Eat",i:"Eat.svg",c:"purple"},
-{l:"Drink",i:"Drink.svg",c:"purple"},
-{l:"Play",i:"Play.svg",c:"purple"}
+{l:"I",i:"i.svg",c:"blue"},
+{l:"You",i:"you.svg",c:"blue"},
+{l:"We",i:"we.svg",c:"blue"},
+{l:"They",i:"they.svg",c:"blue"},
+{l:"She",i:"she.svg",c:"blue"},
+{l:"Time",i:"time.svg",c:"blue"},
+{l:"Friend",i:"friend.svg",c:"blue"},
+{l:"School",i:"school.svg",c:"blue"},
+{l:"Home",i:"home.svg",c:"blue"},
+{l:"Family",i:"family.svg",c:"blue"},
+{l:"Doctor",i:"doctor.svg",c:"blue"}
 ]}
 ]
-
-}
+};
 
 function render(){
 
-const root=document.getElementById("grid-root")
-root.innerHTML=""
+const root=document.getElementById("grid-root");
+root.innerHTML="";
 
 vocab[mode].forEach(sec=>{
 
-const title=document.createElement("div")
-title.className="section-title"
-title.innerText=sec.title
-root.appendChild(title)
+const title=document.createElement("div");
+title.className="section-title";
+title.innerText=sec.title;
+root.appendChild(title);
 
-const grid=document.createElement("div")
-grid.className="grid"
+const grid=document.createElement("div");
+grid.className="grid";
 
 sec.items.forEach(item=>{
 
-const tile=document.createElement("div")
-tile.className=`tile ${item.c}`
+const tile=document.createElement("div");
+tile.className=`tile ${item.c}`;
 
-tile.innerHTML=
-`<img src="${baseIconPath}${item.i}">
-<span>${item.l}</span>`
+const iconFile=item.i.charAt(0).toUpperCase()+item.i.slice(1);
 
-tile.onclick=()=>handleTileTap(item)
+tile.innerHTML=`<img src="${baseIconPath}${iconFile}"><span>${item.l}</span>`;
 
-grid.appendChild(tile)
+tile.onclick=()=>handleTileTap(item);
 
-})
+grid.appendChild(tile);
 
-root.appendChild(grid)
+});
 
-})
+root.appendChild(grid);
+
+});
 
 }
 
 function handleTileTap(item){
 
 if(mode==="core"){
-const p=document.getElementById("phrase")
-if(p.innerText.includes("..."))p.innerText=""
-p.innerText+=" "+item.l
+const p=document.getElementById("phrase");
+if(p.innerText.includes("..."))p.innerText="";
+p.innerText+=" "+item.l;
 }else{
-const speech=new SpeechSynthesisUtterance(
-(mode==="feeling"?"I am feeling ":"I want ")+item.l
-)
-speechSynthesis.speak(speech)
+const speech=new SpeechSynthesisUtterance((mode==="feeling"?"I am feeling ":"I want ")+item.l);
+speechSynthesis.speak(speech);
 }
 
 }
 
 function setTheme(t){
-document.body.dataset.theme=t
+document.body.dataset.theme=t;
 }
 
 function changeMode(m){
-mode=m
-render()
+mode=m;
+render();
 }
 
 function clearP(){
-document.getElementById("phrase").innerText="I want to..."
+document.getElementById("phrase").innerText="I want to...";
 }
 
-render()
+render();
 
 </script>
 
