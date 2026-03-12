@@ -77,6 +77,7 @@
             object-fit: contain;
         }
 
+        /* RESTORED NAVIGATION STYLE */
         .nav-bar {
             background: var(--bg-nav);
             box-shadow: var(--nav-shadow);
@@ -86,31 +87,26 @@
         }
 
         .tab, .btn-info-nav {
-            padding: 10px 24px; border-radius: 20px; border: none;
+            padding: 10px 24px; border-radius: 54px; border: none;
             background: var(--nav-inactive); color: white;
             font-weight: 600; cursor: pointer; font-size: 14px; transition: background 0.2s;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center;
+            display: flex; align-items: center; justify-content: center;
         }
 
         .nav-icon {
-            width: 82px;
-            height: 96px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto 6px auto;
+            height: 20px;
+            width: auto;
+            margin-right: 8px;
             pointer-events: none;
         }
 
         .btn-info-nav {
-            margin-left: auto; width: auto; height: auto; padding: 10px;
+            margin-left: auto; width: 44px; height: 44px; padding: 0;
             display: flex; align-items: center; justify-content: center;
         }
 
         .btn-info-nav .nav-icon {
-            margin-bottom: 0;
-            width: 44px;
-            height: 44px;
+            margin-right: 0;
         }
 
         .tab.active[data-mode="core"] { background: var(--tile-blue); }
@@ -146,9 +142,10 @@
             overflow: hidden; 
         }
 
+        /* UPDATED TILE ICON SIZING */
         .tile img {
-            width: 50px;
-            height: 50px;
+            width: 82px;
+            height: 96px;
             margin-bottom: 6px;
             pointer-events: none;
             object-fit: contain;
@@ -167,7 +164,7 @@
             aspect-ratio: auto;
             border-radius: 20px;
         }
-        .tile.red img { width: 120px; height: 120px; margin-bottom: 20px; }
+        .tile.red img { width: 180px; height: 180px; margin-bottom: 20px; }
         .tile.red span { font-size: 28px; font-weight: 700; }
 
         .tile::before {
@@ -235,7 +232,8 @@
             width: 250px; height: 250px; background: var(--help-red); border-radius: 20px;
             display: flex; align-items: center; justify-content: center; margin-bottom: 60px;
         }
-        .call-avatar-tile img { width: 150px; height: 150px; object-fit: contain; }
+        /* Call screen icon also updated */
+        .call-avatar-tile img { width: 180px; height: 180px; object-fit: contain; }
 
         .call-controls { display: flex; gap: 15px; align-items: center; }
         
@@ -270,15 +268,15 @@
 <nav class="nav-bar">
     <button class="tab active" data-mode="core" onclick="changeMode('core')">
         <img src="icons/Sentence.svg" class="nav-icon" alt="Sentence Building">
-        <span>Sentence building</span>
+        Sentence building
     </button>
     <button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
         <img src="icons/Feel.svg" class="nav-icon" alt="I am feeling">
-        <span>I am feeling</span>
+        I am feeling
     </button>
     <button class="tab" data-mode="want" onclick="changeMode('want')">
         <img src="icons/Want.svg" class="nav-icon" alt="I want">
-        <span>I want</span>
+        I want
     </button>
     <button class="btn-info-nav" onclick="openInfoModal()">
         <img src="icons/Help.svg" class="nav-icon" alt="Info">
