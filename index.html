@@ -167,12 +167,7 @@
 
     margin-bottom: 8px;
 }
-.add-plus {
-    font-size: 110px;
-    line-height: 1;
-    font-weight: 300;
-}
-  
+
 .tile img {
     width: 140%;
     height: 140%;
@@ -569,7 +564,7 @@ t.innerHTML = `
             if(mode === 'help') add.style.display = 'none';
             add.innerHTML = `
 <div class="tile-icon">
-    <span class="add-plus">+</span>
+    <img src="${baseIconPath}Add.svg" alt="Add">
 </div>
 <span>Add More</span>`;
             add.onclick = () => showAddModal(sec);
