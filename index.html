@@ -139,32 +139,39 @@
 .tile {
     aspect-ratio: 104.69 / 126.25;
     border-radius: 12px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     cursor: pointer;
     position: relative;
     color: white;
     text-align: center;
+
     user-select: none;
     -webkit-user-select: none;
+
     overflow: hidden;
-    padding: 10px 6px 6px 6px;
+    padding: 8px;
 }
 
 .tile-icon {
     width: 90px;
     height: 90px;
     overflow: hidden;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin-bottom: 8px;
 }
         
 .tile img {
-    width: 130%;
-    height: 130%;
+    width: 140%;
+    height: 140%;
     object-fit: contain;
     pointer-events: none;
 }
@@ -210,12 +217,16 @@
         .tile.teal { background: var(--tile-teal); }
         .tile.slate { background: var(--tile-slate); }
         .tile.pink { background: var(--tile-pink); }
-        .tile.add { 
-            background: var(--tile-add); 
-            border: 2px dashed rgba(255,255,255,0.2); 
-            justify-content: center;
-            padding-top: 0;
-        }
+       .tile.add {
+    background: var(--tile-add);
+    border: 2px dashed rgba(255,255,255,0.2);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px;
+}
         .tile.add span { margin-top: 0; padding-bottom: 0; transform: none; }
 
         .section-title { 
@@ -501,11 +512,11 @@
                 t.className = `tile ${item.c}`;
                 const iconFile = getCleanIconFilename(item.l, item.i);
                 t.innerHTML = `
+t.innerHTML = `
 <div class="tile-icon">
     <img src="${baseIconPath}${iconFile}" alt="${item.l}">
 </div>
 <span>${item.l}</span>`;
-
                 const startHold = () => {
                     longPressedTriggered = false;
                     t.classList.add('is-holding');
