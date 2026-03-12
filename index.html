@@ -141,7 +141,6 @@
             font-size: clamp(18px, 2.8vw, 24px);
         }
 
-        /* RESPONSIVE GRID */
         .grid { 
             display: grid; 
             gap: 12px;
@@ -202,7 +201,6 @@
         }
         .tile.is-holding::before { opacity: 1; }
 
-        /* HELP GRID */
         .grid.help-grid {
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             justify-content: center;
@@ -225,20 +223,6 @@
             margin: 30px 0 12px; 
         }
 
-        /* CALL SCREEN */
-        .call-container {
-            display: none; flex-direction: column; align-items: center; 
-            padding-top: 40px; min-height: 70vh; text-align: center;
-        }
-        .call-avatar-tile {
-            width: clamp(200px, 60vw, 280px); 
-            height: clamp(200px, 60vw, 280px); 
-            background: var(--help-red); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin: 40px 0;
-        }
-        .call-avatar-tile img { width: 70%; height: auto; }
-
-        /* MODALS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
@@ -247,21 +231,20 @@
         .modal-content {
             background: var(--bg-header); padding: 30px; border-radius: 20px;
             width: 90%; max-width: 400px; color: white;
+            text-align: left;
         }
+        .modal-content h2 { text-align: center; margin-top: 0; }
+        .modal-content ul { padding-left: 20px; line-height: 1.6; }
         .modal-btn { 
             width: 100%; padding: 15px; border-radius: 12px; border: none; 
             font-weight: 700; margin-top: 10px; cursor: pointer;
-        }
-        .modal-input {
-            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444;
-            background: #1e2533; color: white; margin-top: 10px; box-sizing: border-box;
         }
     </style>
 </head>
 <body data-theme="dark">
 
 <header>
-    <button onclick="changeMode('help')" id="helpBtn" style="background:var(--help-red); border:none; color:white; padding:10px 20px; border-radius:30px; font-weight:bold; cursor:pointer;">
+    <button onclick="changeMode('help')" style="background:var(--help-red); border:none; color:white; padding:10px 20px; border-radius:30px; font-weight:bold; cursor:pointer;">
         ⚠️ Get help
     </button>
     <img src="icons/Header.svg" alt="Logo" class="header-logo">
@@ -291,63 +274,68 @@
             <span onclick="clearP()" style="cursor:pointer">🗑️</span>
         </div>
     </div>
-
     <div id="grid-root"></div>
-
-    <div id="call-screen" class="call-container">
-        <div style="font-size:32px; font-weight:800;" id="active-call-name">Emergency</div>
-        <div style="color:var(--text-sub)">00:03</div>
-        <div class="call-avatar-tile" id="active-call-avatar"></div>
-        <button class="tab" style="background:var(--help-red); padding:15px 40px; transform:rotate(135deg)" onclick="endCall()">📞</button>
-    </div>
 </main>
-
-<div id="editModal" class="modal-overlay">
-    <div class="modal-content">
-        <h2 id="editTitle">Edit Tile</h2>
-        <button class="modal-btn" style="background:var(--tile-blue); color:white" onclick="editLabel()">Edit Label</button>
-        <button class="modal-btn" style="background:var(--help-red); color:white" onclick="deleteTile()">Delete Tile</button>
-        <button class="modal-btn" style="background:var(--tile-slate); color:white" onclick="closeModal('editModal')">Cancel</button>
-    </div>
-</div>
-
-<div id="addModal" class="modal-overlay">
-    <div class="modal-content">
-        <h2>Add New Tile</h2>
-        <input type="text" id="addLabel" class="modal-input" placeholder="Label (e.g. Pizza)">
-        <input type="text" id="addIcon" class="modal-input" placeholder="Icon Filename (e.g. Pizza.svg)">
-        <button class="modal-btn" style="background:var(--tile-blue); color:white" onclick="confirmAdd()">Add Tile</button>
-        <button class="modal-btn" style="background:var(--tile-slate); color:white" onclick="closeModal('addModal')">Cancel</button>
-    </div>
-</div>
 
 <div id="infoModal" class="modal-overlay">
     <div class="modal-content">
         <h2>Information</h2>
-        <p>OpenVoice AAC v2.1 Pro Build</p>
-        <button class="tab" style="width:100%" onclick="closeModal('infoModal')">Close</button>
+        <ul>
+            <li>Help / more info coming soon</li>
+            <li>Progressive onboarding coming soon</li>
+            <li>Haptic feedback coming soon</li>
+        </ul>
+        <button class="tab" style="width:100%; margin-top: 20px;" onclick="closeModal('infoModal')">Close</button>
     </div>
 </div>
 
 <script>
     const baseIconPath = 'icons/';
     let mode = 'core';
-    let holdTimer, longPressTriggered = false, currentTarget = null;
 
+    /* SVG ViewBoxes corrected to prevent clipping */
     const uiSVGs = {
-        dark: `<svg viewBox="90 90 332 332" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M223.5 38.7c-7.7 0-14 6.3-14 14s6.3 14 14 14c79.2 0 143.7 64.5 143.7 143.7s-64.5 143.7-143.7 143.7c-7.7 0-14 6.3-14 14s6.3 14 14 14c94.7 0 171.7-77 171.7-171.7S318.2 38.7 223.5 38.7z"/></svg>`,
-        light: `<svg viewBox="60 60 392 392" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="80" fill="currentColor"/><path stroke="currentColor" stroke-width="32" stroke-linecap="round" d="M256 48v48m0 320v48M48 256h48m320 0h48M108.9 108.9l33.9 33.9m226.4 226.4l33.9 33.9m0-294.2l-33.9 33.9M142.8 369.2l-33.9 33.9"/></svg>`
+        dark: `<svg viewBox="50 50 412 412" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M223.5 38.7c-7.7 0-14 6.3-14 14s6.3 14 14 14c79.2 0 143.7 64.5 143.7 143.7s-64.5 143.7-143.7 143.7c-7.7 0-14 6.3-14 14s6.3 14 14 14c94.7 0 171.7-77 171.7-171.7S318.2 38.7 223.5 38.7z"/></svg>`,
+        light: `<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="80" fill="currentColor"/><path stroke="currentColor" stroke-width="32" stroke-linecap="round" d="M256 48v48m0 320v48M48 256h48m320 0h48M108.9 108.9l33.9 33.9m226.4 226.4l33.9 33.9m0-294.2l-33.9 33.9M142.8 369.2l-33.9 33.9"/></svg>`
     };
 
+    /* RESTORED VOCABULARY AND SECTION HEADINGS */
     const vocab = {
         core: [
-            { title: "People & Questions", items: [{l:'I', i:'I.svg', c:'blue'}, {l:'You', i:'You.svg', c:'blue'}, {l:'What', i:'What.svg', c:'blue'}, {l:'Where', i:'Where.svg', c:'blue'}] },
-            { title: "Common Actions", items: [{l:'Eat', i:'Eat.svg', c:'purple'}, {l:'Drink', i:'Drink.svg', c:'purple'}, {l:'Go', i:'Go.svg', c:'purple'}, {l:'Help', i:'Help.svg', c:'teal'}, {l:'Stop', i:'Stop.svg', c:'teal'}] },
-            { title: "Descriptors", items: [{l:'Big', i:'Big.svg', c:'pink'}, {l:'Small', i:'Small.svg', c:'pink'}, {l:'Hot', i:'Hot.svg', c:'pink'}] }
+            { title: "People", items: [
+                {l:'I', i:'I.svg', c:'blue'}, {l:'You', i:'You.svg', c:'blue'}, 
+                {l:'They', i:'They.svg', c:'blue'}, {l:'We', i:'We.svg', c:'blue'}, 
+                {l:'Who', i:'Who.svg', c:'blue'}, {l:'She', i:'She.svg', c:'blue'}
+            ]},
+            { title: "Needs & Wants", items: [
+                {l:'Want', i:'Want.svg', c:'purple'}, {l:'Need', i:'Need.svg', c:'purple'}, 
+                {l:'Like', i:'Like.svg', c:'purple'}, {l:'Have', i:'Have.svg', c:'purple'},
+                {l:'Where', i:'Where.svg', c:'blue'}, {l:'What', i:'What.svg', c:'blue'}
+            ]},
+            { title: "Actions", items: [
+                {l:'Go', i:'Go.svg', c:'purple'}, {l:'Eat', i:'Eat.svg', c:'purple'}, 
+                {l:'Drink', i:'Drink.svg', c:'purple'}, {l:'Play', i:'Play.svg', c:'purple'}, 
+                {l:'See', i:'See.svg', c:'purple'}, {l:'Stop', i:'Stop.svg', c:'teal'}
+            ]},
+            { title: "Times & Responses", items: [
+                {l:'Time', i:'Time.svg', c:'blue'}, {l:'Now', i:'Now.svg', c:'slate'}, 
+                {l:'Later', i:'Later.svg', c:'slate'}, {l:'Yes', i:'Yes.svg', c:'slate'}, 
+                {l:'No', i:'No.svg', c:'slate'}, {l:'Please', i:'Please.svg', c:'teal'}
+            ]}
         ],
-        feeling: [{ title: "Feelings", items: [{l:'Happy', i:'Happy.svg', c:'pink'}, {l:'Sad', i:'Sad.svg', c:'pink'}, {l:'Sleepy', i:'Sleepy.svg', c:'pink'}, {l:'Mad', i:'Mad.svg', c:'pink'}] }],
-        want: [{ title: "Needs", items: [{l:'Water', i:'Water.svg', c:'purple'}, {l:'Food', i:'Food.svg', c:'purple'}, {l:'Toilet', i:'Bathroom.svg', c:'purple'}, {l:'Break', i:'Break.svg', c:'purple'}] }],
-        help: [{ title: "Emergency", items: [{l:'Call 911', i:'Call-911.svg', c:'red'}, {l:'Call Mom', i:'Call-mom.svg', c:'red'}] }]
+        feeling: [{ title: "Feelings", items: [
+            {l:'Happy', i:'Happy.svg', c:'pink'}, {l:'Sad', i:'Sad.svg', c:'pink'}, 
+            {l:'Sleepy', i:'Sleepy.svg', c:'pink'}, {l:'Mad', i:'Mad.svg', c:'pink'},
+            {l:'Scared', i:'Scared.svg', c:'pink'}, {l:'Sick', i:'Sick.svg', c:'pink'}
+        ]}],
+        want: [{ title: "Needs", items: [
+            {l:'Water', i:'Water.svg', c:'purple'}, {l:'Food', i:'Food.svg', c:'purple'}, 
+            {l:'Toilet', i:'Bathroom.svg', c:'purple'}, {l:'Break', i:'Break.svg', c:'purple'},
+            {l:'Help', i:'Help.svg', c:'teal'}, {l:'Hug', i:'A-hug.svg', c:'purple'}
+        ]}],
+        help: [{ title: "Emergency", items: [
+            {l:'Call 911', i:'Call-911.svg', c:'red'}, {l:'Call Mom', i:'Call-mom.svg', c:'red'}
+        ]}]
     };
 
     function renderThemeControls() {
@@ -362,10 +350,8 @@
         const root = document.getElementById('grid-root');
         root.innerHTML = '';
         document.getElementById('phrase-container').style.display = (mode === 'core' ? 'flex' : 'none');
-        document.getElementById('call-screen').style.display = 'none';
-        root.style.display = 'block';
 
-        vocab[mode].forEach((sec, sIdx) => {
+        vocab[mode].forEach((sec) => {
             const title = document.createElement('div');
             title.className = 'section-title';
             title.innerText = sec.title;
@@ -374,96 +360,29 @@
             const grid = document.createElement('div');
             grid.className = (mode === 'help') ? 'grid help-grid' : 'grid';
 
-            sec.items.forEach((item, iIdx) => {
+            sec.items.forEach((item) => {
                 const t = document.createElement('div');
                 t.className = `tile ${item.c}`;
                 t.innerHTML = `<img src="${baseIconPath}${item.i}"><span>${item.l}</span>`;
-                
-                t.onpointerdown = () => {
-                    longPressTriggered = false;
-                    t.classList.add('is-holding');
-                    holdTimer = setTimeout(() => {
-                        longPressTriggered = true;
-                        t.classList.remove('is-holding');
-                        openEdit(sec, iIdx);
-                    }, 2500);
-                };
-                t.onpointerup = t.onpointerleave = () => { clearTimeout(holdTimer); t.classList.remove('is-holding'); };
-
                 t.onclick = () => {
-                    if(longPressTriggered) return;
-                    handleTap(item);
+                    if (mode === 'core') {
+                        const p = document.getElementById('phrase');
+                        if (p.innerText.includes('...')) p.innerText = '';
+                        p.innerText += ' ' + item.l;
+                    }
+                    window.speechSynthesis.speak(new SpeechSynthesisUtterance(item.l));
                 };
                 grid.appendChild(t);
             });
-
-            if(mode !== 'help') {
-                const add = document.createElement('div');
-                add.className = 'tile add';
-                add.innerHTML = `<span>+ Add</span>`;
-                add.onclick = () => openAdd(sec);
-                grid.appendChild(add);
-            }
             root.appendChild(grid);
         });
         renderThemeControls();
-    }
-
-    function handleTap(item) {
-        if (mode === 'help') {
-            document.getElementById('grid-root').style.display = 'none';
-            document.getElementById('call-screen').style.display = 'flex';
-            document.getElementById('active-call-name').innerText = item.l;
-            document.getElementById('active-call-avatar').innerHTML = `<img src="${baseIconPath}${item.i}">`;
-            return;
-        }
-        if (mode === 'core') {
-            const p = document.getElementById('phrase');
-            if (p.innerText.includes('...')) p.innerText = '';
-            p.innerText += ' ' + item.l;
-        }
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance(item.l));
-    }
-
-    function openEdit(section, index) {
-        currentTarget = { section, index };
-        document.getElementById('editTitle').innerText = `Edit: ${section.items[index].l}`;
-        openModal('editModal');
-    }
-
-    function editLabel() {
-        const newL = prompt("Enter new label:", currentTarget.section.items[currentTarget.index].l);
-        if(newL) { currentTarget.section.items[currentTarget.index].l = newL; render(); }
-        closeModal('editModal');
-    }
-
-    function deleteTile() {
-        if(confirm("Delete this tile?")) {
-            currentTarget.section.items.splice(currentTarget.index, 1);
-            render();
-        }
-        closeModal('editModal');
-    }
-
-    function openAdd(section) {
-        currentTarget = section;
-        openModal('addModal');
-    }
-
-    function confirmAdd() {
-        const l = document.getElementById('addLabel').value;
-        const i = document.getElementById('addIcon').value;
-        if(l && i) {
-            currentTarget.items.push({l, i, c: currentTarget.items[0]?.c || 'blue'});
-            render(); closeModal('addModal');
-        }
     }
 
     function setTheme(t) { document.body.dataset.theme = t; renderThemeControls(); }
     function changeMode(m) { mode = m; document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === m)); render(); }
     function clearP() { document.getElementById('phrase').innerText = 'I want to...'; }
     function speakCurrentPhrase() { window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('phrase').innerText)); }
-    function endCall() { render(); }
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
