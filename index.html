@@ -77,7 +77,6 @@
             object-fit: contain;
         }
 
-        /* RESTORED NAVIGATION STYLE */
         .nav-bar {
             background: var(--bg-nav);
             box-shadow: var(--nav-shadow);
@@ -140,13 +139,16 @@
             color: white; font-weight: 500; font-size: 14px; text-align: center;
             user-select: none; -webkit-user-select: none;
             overflow: hidden; 
+            /* REDUCED PADDING TO ALLOW ICON TO FILL SPACE */
+            padding: 4px 6px;
         }
 
-        /* UPDATED TILE ICON SIZING */
         .tile img {
+            /* ICON DIMENSIONS */
             width: 82px;
             height: 96px;
-            margin-bottom: 6px;
+            /* REDUCED MARGIN TO SIT CLOSER TO LABEL */
+            margin-bottom: 4px;
             pointer-events: none;
             object-fit: contain;
         }
@@ -163,6 +165,7 @@
             height: 327.34px; 
             aspect-ratio: auto;
             border-radius: 20px;
+            padding: 20px;
         }
         .tile.red img { width: 180px; height: 180px; margin-bottom: 20px; }
         .tile.red span { font-size: 28px; font-weight: 700; }
@@ -232,7 +235,6 @@
             width: 250px; height: 250px; background: var(--help-red); border-radius: 20px;
             display: flex; align-items: center; justify-content: center; margin-bottom: 60px;
         }
-        /* Call screen icon also updated */
         .call-avatar-tile img { width: 180px; height: 180px; object-fit: contain; }
 
         .call-controls { display: flex; gap: 15px; align-items: center; }
