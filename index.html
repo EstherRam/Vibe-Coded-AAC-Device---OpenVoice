@@ -134,26 +134,39 @@
         .tile {
             aspect-ratio: 104.69 / 126.25; 
             border-radius: 12px;
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; cursor: pointer; position: relative;
-            color: white; font-weight: 500; font-size: 14px; text-align: center;
-            user-select: none; -webkit-user-select: none;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: flex-start; /* Move content higher */
+            cursor: pointer; 
+            position: relative;
+            color: white; 
+            font-weight: 500; 
+            text-align: center;
+            user-select: none; 
+            -webkit-user-select: none;
             overflow: hidden; 
-            /* REDUCED PADDING TO ALLOW ICON TO FILL SPACE */
-            padding: 4px 6px;
+            padding: 12px 6px 0px 6px; /* Increased top padding, removed bottom */
+            box-sizing: border-box;
         }
 
         .tile img {
-            /* ICON DIMENSIONS */
-            width: 82px;
-            height: 96px;
-            /* REDUCED MARGIN TO SIT CLOSER TO LABEL */
-            margin-bottom: 4px;
-            pointer-events: none;
+            width: 90%; /* Fill width */
+            height: auto;
+            max-height: 72%; /* Occupy 72% of height */
             object-fit: contain;
+            margin-bottom: 0; /* Removed margin to let flex handle it */
+            pointer-events: none;
         }
 
-        /* HELP GRID */
+        .tile span {
+            margin-top: auto; /* Push to bottom */
+            padding-bottom: 10px; /* Spacing from bottom edge */
+            font-size: 14px;
+            z-index: 2;
+        }
+
+        /* HELP GRID - Maintain large specialized layout */
         .grid.help-grid {
             grid-template-columns: repeat(auto-fit, 327px);
             justify-content: center;
@@ -165,10 +178,10 @@
             height: 327.34px; 
             aspect-ratio: auto;
             border-radius: 20px;
-            padding: 20px;
+            padding: 24px 20px 0px 20px;
         }
-        .tile.red img { width: 180px; height: 180px; margin-bottom: 20px; }
-        .tile.red span { font-size: 28px; font-weight: 700; }
+        .tile.red img { width: 90%; height: auto; max-height: 75%; margin-bottom: 0; }
+        .tile.red span { font-size: 28px; font-weight: 700; padding-bottom: 20px; }
 
         .tile::before {
             content: "";
@@ -187,7 +200,13 @@
         .tile.teal { background: var(--tile-teal); }
         .tile.slate { background: var(--tile-slate); }
         .tile.pink { background: var(--tile-pink); }
-        .tile.add { background: var(--tile-add); border: 2px dashed rgba(255,255,255,0.2); }
+        .tile.add { 
+            background: var(--tile-add); 
+            border: 2px dashed rgba(255,255,255,0.2); 
+            justify-content: center; /* Center the "Add More" text */
+            padding-top: 0;
+        }
+        .tile.add span { margin-top: 0; padding-bottom: 0; }
 
         .section-title { font-size: 14px; color: var(--text-sub); margin: 25px 0 10px; font-weight: 600; }
 
@@ -232,8 +251,9 @@
         .call-timer { font-size: 20px; color: var(--text-sub); margin-bottom: 50px; }
         
         .call-avatar-tile {
-            width: 250px; height: 250px; background: var(--help-red); border-radius: 20px;
+            width: 281px; height: 278px; background: var(--help-red); border-radius: 185px;
             display: flex; align-items: center; justify-content: center; margin-bottom: 60px;
+            overflow: hidden;
         }
         .call-avatar-tile img { width: 180px; height: 180px; object-fit: contain; }
 
