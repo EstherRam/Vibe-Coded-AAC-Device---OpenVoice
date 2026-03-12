@@ -45,74 +45,77 @@
             font-family: system-ui, -apple-system, sans-serif;
             transition: background-color 0.3s;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         header {
             background-color: var(--bg-header);
-            padding: 15px 25px;
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 90px;
+            min-height: 70px;
         }
 
         .header-logo {
-            width: 389px;
-            height: 90px;
+            max-width: clamp(140px, 35vw, 389px);
+            height: auto;
             object-fit: contain;
         }
 
-        .toggle-group { 
-            display: flex; 
-            gap: 7px;
-        }
+        .toggle-group { display: flex; gap: 8px; }
 
         .toggle-btn {
-            width: 44px; height: 44px; border-radius: 12px;
+            width: clamp(38px, 8vw, 44px);
+            height: clamp(38px, 8vw, 44px);
+            border-radius: 12px;
             border: none;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; background: transparent; transition: opacity 0.2s;
+            cursor: pointer;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            padding: 4px;
         }
-        
-        .toggle-btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .toggle-btn svg { width: 100%; height: 100%; }
 
         .nav-bar {
             background: var(--bg-nav);
             box-shadow: var(--nav-shadow);
-            width: 100%; display: flex;
-            padding: 12px 25px; box-sizing: border-box;
-            gap: 12px; align-items: center; transition: all 0.3s;
+            width: 100%; 
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px 15px; 
+            box-sizing: border-box;
+            gap: 8px; 
+            align-items: center;
         }
 
         .tab, .btn-info-nav {
-            padding: 10px 24px; border-radius: 54px; border: none;
-            background: var(--nav-inactive); color: white;
+            padding: 8px 18px; 
+            border-radius: 54px; 
+            border: none;
+            background: var(--nav-inactive); 
+            color: white;
             font-weight: 600;
             cursor: pointer; 
-            font-size: 24px;
+            font-size: clamp(14px, 2.1vw, 22px);
             transition: background 0.2s;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center;
+            white-space: nowrap;
         }
 
         .nav-icon {
-            height: 20px;
+            height: clamp(14px, 1.8vw, 20px);
             width: auto;
             margin-right: 8px;
             pointer-events: none;
         }
 
-        .btn-info-nav {
-            margin-left: auto; width: 44px; height: 44px; padding: 0;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .btn-info-nav .nav-icon {
-            margin-right: 0;
-        }
+        .btn-info-nav { margin-left: auto; width: 40px; height: 40px; padding: 0; }
+        .btn-info-nav .nav-icon { margin-right: 0; }
 
         .tab.active[data-mode="core"] { background: var(--tile-blue); }
         .tab.active[data-mode="feeling"] { background: var(--tile-pink); }
@@ -120,39 +123,48 @@
         .tab.active[data-mode="help"] { background: var(--help-red); }
 
         .content {
-            max-width: 1000px; margin: 0 auto; padding: 24.63px 25.4px;
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px 15px;
         }
 
         .phrase-bar {
-            background: var(--yellow-bar); color: #121827;
-            padding: 15px; border-radius: 8px; margin-bottom: 25px;
-            display: flex; justify-content: space-between; font-weight: 600;
+            background: var(--yellow-bar); 
+            color: #121827;
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 25px;
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: clamp(18px, 2.8vw, 24px);
         }
 
-        /* GRID & TILE SIZES */
+        /* RESPONSIVE GRID */
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 7.7px; 
+            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
         }
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 10px; } }
+        @media (min-width: 480px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1024px) { .grid { grid-template-columns: repeat(5, 1fr); } }
 
         .tile {
-            aspect-ratio: 104.69 / 126.25; 
-            border-radius: 12px;
-            display: flex; 
-            flex-direction: column; 
+            aspect-ratio: 1 / 1.22;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer; 
+            cursor: pointer;
             position: relative;
-            color: white; 
-            text-align: center;
-            user-select: none; 
-            -webkit-user-select: none;
-            overflow: hidden; 
-            padding: 20px 6px 18px 6px; 
+            color: white;
+            padding: 12px 6px;
             box-sizing: border-box;
+            user-select: none;
+            overflow: hidden;
         }
 
         .tile img {
@@ -160,35 +172,25 @@
             height: auto;
             max-height: 70%;
             object-fit: contain;
-            margin-top: 10px;
             margin-bottom: 8px;
             pointer-events: none;
         }
 
         .tile span {
-            font-size: 24px;
-            font-weight: 400;
-            margin-top: 4px; 
-            transform: translateY(-6px);
+            font-size: clamp(14px, 2vw, 22px);
+            font-weight: 500;
             z-index: 2;
+            width: 100%;
+            text-align: center;
+            line-height: 1.1;
         }
 
-        /* HELP GRID */
-        .grid.help-grid {
-            grid-template-columns: repeat(auto-fit, 327px);
-            justify-content: center;
-            gap: 20px;
-        }
-        .tile.red { 
-            background: var(--help-red); 
-            width: 327px; 
-            height: 327.34px; 
-            aspect-ratio: auto;
-            border-radius: 20px;
-            padding: 24px 20px 0px 20px;
-        }
-        .tile.red img { width: 90%; height: auto; max-height: 75%; margin-bottom: 0; }
-        .tile.red span { font-size: 28px; font-weight: 700; padding-bottom: 20px; transform: none; }
+        .tile.blue { background: var(--tile-blue); }
+        .tile.purple { background: var(--tile-purple); }
+        .tile.teal { background: var(--tile-teal); }
+        .tile.slate { background: var(--tile-slate); }
+        .tile.pink { background: var(--tile-pink); }
+        .tile.add { background: var(--tile-add); border: 2px dashed rgba(255,255,255,0.2); }
 
         .tile::before {
             content: "";
@@ -197,294 +199,173 @@
             background-color: var(--hold-color);
             opacity: 0; z-index: 1;
             transition: opacity 3s linear;
-            pointer-events: none;
         }
         .tile.is-holding::before { opacity: 1; }
-        .tile img, .tile span { position: relative; z-index: 2; }
 
-        .tile.blue { background: var(--tile-blue); }
-        .tile.purple { background: var(--tile-purple); }
-        .tile.teal { background: var(--tile-teal); }
-        .tile.slate { background: var(--tile-slate); }
-        .tile.pink { background: var(--tile-pink); }
-        .tile.add { 
-            background: var(--tile-add); 
-            border: 2px dashed rgba(255,255,255,0.2); 
+        /* HELP GRID */
+        .grid.help-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             justify-content: center;
-            padding-top: 0;
+            gap: 20px;
         }
-        .tile.add span { margin-top: 0; padding-bottom: 0; transform: none; }
+        .tile.red { 
+            background: var(--help-red); 
+            width: 100%;
+            max-width: 327px;
+            aspect-ratio: 1/1;
+            padding: 24px;
+            margin: 0 auto;
+        }
+        .tile.red span { font-size: clamp(20px, 4vw, 28px); font-weight: 700; }
 
         .section-title { 
-            font-size: 24px; 
+            font-size: clamp(18px, 2.5vw, 24px); 
             font-weight: 300;
             color: var(--text-sub); 
-            margin: 25px 0 10px; 
+            margin: 30px 0 12px; 
         }
 
-        /* Modals */
+        /* CALL SCREEN */
+        .call-container {
+            display: none; flex-direction: column; align-items: center; 
+            padding-top: 40px; min-height: 70vh; text-align: center;
+        }
+        .call-avatar-tile {
+            width: clamp(200px, 60vw, 280px); 
+            height: clamp(200px, 60vw, 280px); 
+            background: var(--help-red); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 40px 0;
+        }
+        .call-avatar-tile img { width: 70%; height: auto; }
+
+        /* MODALS */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
             display: none; justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-content {
-            background: var(--bg-header);
-            padding: 32px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
-            display: flex; flex-direction: column; gap: 20px;
+            background: var(--bg-header); padding: 30px; border-radius: 20px;
+            width: 90%; max-width: 400px; color: white;
         }
-        .modal-title { margin: 0; font-size: 24px; font-weight: 700; color: var(--text-main); }
-        .modal-buttons { display: flex; flex-direction: column; gap: 12px; }
-        .modal-btn { padding: 16px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .btn-primary { background: var(--tile-blue); color: white; }
-        .btn-secondary { background: var(--tile-purple); color: white; }
-        .btn-danger { background: var(--help-red); color: white; }
-        .btn-cancel { background: var(--tile-slate); color: white; }
-        .modal-input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; color: white; font-size: 16px; }
-        
-        .info-list {
-            text-align: left;
-            color: var(--text-main);
-            margin: 0;
-            padding: 0 20px;
-            line-height: 1.6;
+        .modal-btn { 
+            width: 100%; padding: 15px; border-radius: 12px; border: none; 
+            font-weight: 700; margin-top: 10px; cursor: pointer;
         }
-        .info-list li {
-            margin-bottom: 10px;
+        .modal-input {
+            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444;
+            background: #1e2533; color: white; margin-top: 10px; box-sizing: border-box;
         }
-
-        /* Call Screen */
-        .call-container {
-            display: none; flex-direction: column; align-items: center; justify-content: flex-start;
-            padding-top: 60px; height: 70vh; text-align: center;
-        }
-        .call-name { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
-        .call-timer { font-size: 20px; color: var(--text-sub); margin-bottom: 50px; }
-        
-        .call-avatar-tile {
-            width: 281px; height: 278px; background: var(--help-red); border-radius: 185px;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 60px;
-            overflow: hidden;
-        }
-        .call-avatar-tile img { width: 180px; height: 180px; object-fit: contain; }
-
-        .call-controls { display: flex; gap: 15px; align-items: center; }
-        
-        .call-btn-tile { 
-            width: 80px; height: 80px; border-radius: 12px; 
-            background: var(--tile-slate); border: none; color: white; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; cursor: pointer; 
-        }
-        .call-btn-tile.end { background: var(--help-red); transform: rotate(135deg); }
     </style>
 </head>
 <body data-theme="dark">
 
 <header>
-    <button onclick="changeMode('help')" id="getHelpHeaderBtn" style="background:var(--help-red); border:none; color:white; padding:10px 24px; border-radius:30px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:8px;">
-        <span style="font-size:18px;">⚠️</span> Get help
+    <button onclick="changeMode('help')" id="helpBtn" style="background:var(--help-red); border:none; color:white; padding:10px 20px; border-radius:30px; font-weight:bold; cursor:pointer;">
+        ⚠️ Get help
     </button>
-    
-    <img src="icons/Header.svg" alt="OpenVoice Header" class="header-logo">
-
-    <div class="toggle-group">
-        <button class="toggle-btn" onclick="setTheme('dark')" id="darkToggle">
-            <img src="icons/DM Activated.svg" alt="Dark Mode">
-        </button>
-        <button class="toggle-btn" onclick="setTheme('light')" id="lightToggle">
-            <img src="icons/LM Deactivated.svg" alt="Light Mode">
-        </button>
-    </div>
+    <img src="icons/Header.svg" alt="Logo" class="header-logo">
+    <div class="toggle-group" id="theme-controls"></div>
 </header>
 
 <nav class="nav-bar">
     <button class="tab active" data-mode="core" onclick="changeMode('core')">
-        <img src="icons/Sentence.svg" class="nav-icon" alt="Sentence Building">
-        Sentence building
+        <img src="icons/Sentence.svg" class="nav-icon" alt=""> Sentence building
     </button>
     <button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
-        <img src="icons/Feel.svg" class="nav-icon" alt="I am feeling">
-        I am feeling
+        <img src="icons/Feel.svg" class="nav-icon" alt=""> I am feeling
     </button>
     <button class="tab" data-mode="want" onclick="changeMode('want')">
-        <img src="icons/Want.svg" class="nav-icon" alt="I want">
-        I want
+        <img src="icons/Want.svg" class="nav-icon" alt=""> I want
     </button>
-    <button class="btn-info-nav" onclick="openInfoModal()">
-        <img src="icons/Help.svg" class="nav-icon" alt="Info">
+    <button class="btn-info-nav" onclick="openModal('infoModal')">
+        <img src="icons/Help.svg" class="nav-icon" alt="">
     </button>
 </nav>
 
 <main class="content">
     <div class="phrase-bar" id="phrase-container">
         <span id="phrase">I want to...</span>
-        <div style="cursor:pointer">
-            <span onclick="speakCurrentPhrase()">🔊</span>&nbsp;&nbsp;
-            <span onclick="clearP()">🗑️</span>
+        <div style="display:flex; gap:15px;">
+            <span onclick="speakCurrentPhrase()" style="cursor:pointer">🔊</span>
+            <span onclick="clearP()" style="cursor:pointer">🗑️</span>
         </div>
     </div>
 
     <div id="grid-root"></div>
 
     <div id="call-screen" class="call-container">
-        <div class="call-name" id="active-call-name">Emergency Call</div>
-        <div class="call-timer">00:03</div>
+        <div style="font-size:32px; font-weight:800;" id="active-call-name">Emergency</div>
+        <div style="color:var(--text-sub)">00:03</div>
         <div class="call-avatar-tile" id="active-call-avatar"></div>
-        <div class="call-controls">
-            <button class="call-btn-tile">🔊</button>
-            <button class="call-btn-tile">📹</button>
-            <button class="call-btn-tile">⌗</button>
-            <button class="call-btn-tile end" onclick="endCall()">📞</button>
-        </div>
+        <button class="tab" style="background:var(--help-red); padding:15px 40px; transform:rotate(135deg)" onclick="endCall()">📞</button>
     </div>
 </main>
 
 <div id="editModal" class="modal-overlay">
     <div class="modal-content">
-        <h2 class="modal-title" id="modalTileName">Edit Tile</h2>
-        <div class="modal-buttons">
-            <button class="modal-btn btn-primary" id="btnEditLabel">Edit Label</button>
-            <button class="modal-btn btn-secondary" id="btnEditIcon">Edit Icon</button>
-            <button class="modal-btn btn-danger" id="btnDeleteTile">Delete Tile</button>
-            <button class="modal-btn btn-cancel" onclick="closeModal('editModal')">Cancel</button>
-        </div>
+        <h2 id="editTitle">Edit Tile</h2>
+        <button class="modal-btn" style="background:var(--tile-blue); color:white" onclick="editLabel()">Edit Label</button>
+        <button class="modal-btn" style="background:var(--help-red); color:white" onclick="deleteTile()">Delete Tile</button>
+        <button class="modal-btn" style="background:var(--tile-slate); color:white" onclick="closeModal('editModal')">Cancel</button>
     </div>
 </div>
 
 <div id="addModal" class="modal-overlay">
     <div class="modal-content">
-        <h2 class="modal-title">Add New Tile</h2>
-        <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
-            <label style="font-size: 14px; color: var(--text-sub);">Tile Label</label>
-            <input type="text" id="addLabelInput" class="modal-input" placeholder="e.g. Pizza">
-            <label style="font-size: 14px; color: var(--text-sub);">Tile Icon (Filename)</label>
-            <input type="text" id="addIconInput" class="modal-input" placeholder="e.g. Pizza.svg">
-        </div>
-        <div class="modal-buttons">
-            <button class="modal-btn btn-primary" onclick="processAddTile()">Add Tile</button>
-            <button class="modal-btn btn-cancel" onclick="closeModal('addModal')">Cancel</button>
-        </div>
+        <h2>Add New Tile</h2>
+        <input type="text" id="addLabel" class="modal-input" placeholder="Label (e.g. Pizza)">
+        <input type="text" id="addIcon" class="modal-input" placeholder="Icon Filename (e.g. Pizza.svg)">
+        <button class="modal-btn" style="background:var(--tile-blue); color:white" onclick="confirmAdd()">Add Tile</button>
+        <button class="modal-btn" style="background:var(--tile-slate); color:white" onclick="closeModal('addModal')">Cancel</button>
     </div>
 </div>
 
 <div id="infoModal" class="modal-overlay">
     <div class="modal-content">
-        <h2 class="modal-title">Information</h2>
-        <ul class="info-list">
-            <li>Help / more info coming soon</li>
-            <li>Progressive onboarding coming soon</li>
-            <li>Haptic feedback coming soon</li>
-        </ul>
-        <div class="modal-buttons">
-            <button class="modal-btn btn-cancel" onclick="closeModal('infoModal')">Close</button>
-        </div>
+        <h2>Information</h2>
+        <p>OpenVoice AAC v2.1 Pro Build</p>
+        <button class="tab" style="width:100%" onclick="closeModal('infoModal')">Close</button>
     </div>
 </div>
 
 <script>
     const baseIconPath = 'icons/';
-
     let mode = 'core';
-    let holdTimer;
-    let longPressedTriggered = false;
-    let currentEditTarget = null;
-    let currentAddSection = null;
+    let holdTimer, longPressTriggered = false, currentTarget = null;
+
+    const uiSVGs = {
+        dark: `<svg viewBox="90 90 332 332" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M223.5 38.7c-7.7 0-14 6.3-14 14s6.3 14 14 14c79.2 0 143.7 64.5 143.7 143.7s-64.5 143.7-143.7 143.7c-7.7 0-14 6.3-14 14s6.3 14 14 14c94.7 0 171.7-77 171.7-171.7S318.2 38.7 223.5 38.7z"/></svg>`,
+        light: `<svg viewBox="60 60 392 392" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="80" fill="currentColor"/><path stroke="currentColor" stroke-width="32" stroke-linecap="round" d="M256 48v48m0 320v48M48 256h48m320 0h48M108.9 108.9l33.9 33.9m226.4 226.4l33.9 33.9m0-294.2l-33.9 33.9M142.8 369.2l-33.9 33.9"/></svg>`
+    };
 
     const vocab = {
         core: [
-            { title: "Question Words", items: [
-                {l:'What', i:'What.svg', c:'blue'}, {l:'Where', i:'Where.svg', c:'blue'}, {l:'When', i:'When.svg', c:'blue'}, 
-                {l:'Who', i:'Who.svg', c:'blue'}, {l:'Why', i:'Why.svg', c:'blue'}, {l:'How', i:'How.svg', c:'blue'}
-            ]},
-            { title: "People / Places", items: [
-                {l:'I', i:'I.svg', c:'blue'}, {l:'You', i:'You.svg', c:'blue'}, {l:'We', i:'We.svg', c:'blue'}, 
-                {l:'They', i:'They.svg', c:'blue'}, {l:'She', i:'She.svg', c:'blue'},
-                {l:'Time', i:'Time.svg', c:'blue'}, {l:'Friend', i:'Friend.svg', c:'blue'}, {l:'School', i:'School.svg', c:'blue'},
-                {l:'Home', i:'Home.svg', c:'blue'}, {l:'Family', i:'Family.svg', c:'blue'}, {l:'Doctor', i:'Doctor.svg', c:'blue'}
-            ]},
-            { title: "Negation", items: [
-                {l:'No', i:'No.svg', c:'slate'}, {l:'Not', i:'Not.svg', c:'slate'}, {l:'Don’t', i:'Dont.svg', c:'slate'}
-            ]},
-            { title: "Needs & Wants", items: [
-                {l:'Want', i:'Want.svg', c:'purple'}, {l:'Need', i:'Need.svg', c:'purple'}, {l:'Like', i:'Like.svg', c:'purple'}, 
-                {l:'Have', i:'Have.svg', c:'purple'}, {l:'See', i:'See.svg', c:'purple'}, {l:'Go', i:'Go.svg', c:'purple'}, 
-                {l:'Eat', i:'Eat.svg', c:'purple'}, {l:'Drink', i:'Drink.svg', c:'purple'}, {l:'Play', i:'Play.svg', c:'purple'}
-            ]},
-            { title: "Actions", items: [
-                {l:'Water', i:'Water.svg', c:'teal'}, {l:'Food', i:'Food.svg', c:'teal'}, {l:'Help', i:'Help.svg', c:'teal'}, 
-                {l:'Break', i:'Break.svg', c:'teal'}, {l:'Bathroom', i:'Bathroom.svg', c:'teal'}, {l:'Sleep', i:'Sleep.svg', c:'teal'}, 
-                {l:'Music', i:'Music.svg', c:'teal'}, {l:'Stop', i:'Stop.svg', c:'teal'}
-            ]},
-            { title: "Descriptors", items: [
-                {l:'Big', i:'Big.svg', c:'pink'}, {l:'Small', i:'Small.svg', c:'pink'}, {l:'Hot', i:'Hot.svg', c:'pink'}, 
-                {l:'Cold', i:'Cold.svg', c:'pink'}, {l:'Fast', i:'Fast.svg', c:'pink'}, {l:'Slow', i:'Slow.svg', c:'pink'}, 
-                {l:'Loud', i:'Loud.svg', c:'pink'}, {l:'Quiet', i:'Quiet.svg', c:'pink'}, {l:'Good', i:'Good.svg', c:'pink'}, 
-                {l:'Bad', i:'Bad.svg', c:'pink'}, {l:'Clean', i:'Clean.svg', c:'pink'}, {l:'Dirty', i:'Dirty.svg', c:'pink'}, 
-                {l:'Easy', i:'Easy.svg', c:'pink'}, {l:'Hard', i:'Hard.svg', c:'pink'}
-            ]},
-            { title: "Quantifiers", items: [
-                {l:'More', i:'More.svg', c:'slate'}, {l:'Less', i:'Less.svg', c:'slate'}, {l:'Very', i:'Very.svg', c:'slate'}, 
-                {l:'A lot', i:'A-lot.svg', c:'slate'}, {l:'A little', i:'A-little.svg', c:'slate'}, {l:'Too', i:'Too.svg', c:'slate'}, 
-                {l:'All', i:'All.svg', c:'slate'}, {l:'Some', i:'Some.svg', c:'slate'}, {l:'None', i:'None.svg', c:'slate'}
-            ]},
-            { title: "Connectors", items: [
-                {l:'And', i:'And.svg', c:'slate'}, {l:'Or', i:'Or.svg', c:'slate'}, {l:'Because', i:'Because.svg', c:'slate'}, 
-                {l:'If', i:'If.svg', c:'slate'}, {l:'But', i:'But.svg', c:'slate'}
-            ]},
-            { title: "Time Words", items: [
-                {l:'Before', i:'Before.svg', c:'slate'}, {l:'After', i:'After.svg', c:'slate'}, {l:'Today', i:'Today.svg', c:'slate'}, 
-                {l:'Tomorrow', i:'Tomorrow.svg', c:'slate'}, {l:'Yesterday', i:'Yesterday.svg', c:'slate'}, {l:'Soon', i:'Soon.svg', c:'slate'},
-                {l:'Now', i:'Now.svg', c:'slate'}, {l:'Later', i:'Later.svg', c:'slate'}, {l:'Yes', i:'Yes.svg', c:'slate'}
-            ]},
-            { title: "Social / Polite", items: [
-                {l:'Hello', i:'Hello.svg', c:'teal'}, {l:'Goodbye', i:'Goodbye.svg', c:'teal'}, {l:'Please', i:'Please.svg', c:'teal'}, 
-                {l:'Thank you', i:'Thank-you.svg', c:'teal'}, {l:'Sorry', i:'Sorry.svg', c:'teal'}, {l:'My turn', i:'My-turn.svg', c:'teal'}, 
-                {l:'Your turn', i:'Your-turn.svg', c:'teal'}
-            ]}
+            { title: "People & Questions", items: [{l:'I', i:'I.svg', c:'blue'}, {l:'You', i:'You.svg', c:'blue'}, {l:'What', i:'What.svg', c:'blue'}, {l:'Where', i:'Where.svg', c:'blue'}] },
+            { title: "Common Actions", items: [{l:'Eat', i:'Eat.svg', c:'purple'}, {l:'Drink', i:'Drink.svg', c:'purple'}, {l:'Go', i:'Go.svg', c:'purple'}, {l:'Help', i:'Help.svg', c:'teal'}, {l:'Stop', i:'Stop.svg', c:'teal'}] },
+            { title: "Descriptors", items: [{l:'Big', i:'Big.svg', c:'pink'}, {l:'Small', i:'Small.svg', c:'pink'}, {l:'Hot', i:'Hot.svg', c:'pink'}] }
         ],
-        feeling: [{ title: "Feelings", items: [
-            {l:'Sleepy', i:'Sleepy.svg', c:'pink'}, {l:'Happy', i:'Happy.svg', c:'pink'}, {l:'Sad', i:'Sad.svg', c:'pink'}, 
-            {l:'Mad', i:'Mad.svg', c:'pink'}, {l:'Surprised', i:'Surprised.svg', c:'pink'}, {l:'Confused', i:'Confused.svg', c:'pink'},
-            {l:'Scared', i:'Scared.svg', c:'pink'}, {l:'Excited', i:'Excited.svg', c:'pink'}, {l:'Frustrated', i:'Frustrated.svg', c:'pink'},
-            {l:'Calm', i:'Calm.svg', c:'pink'}, {l:'Proud', i:'Proud.svg', c:'pink'}, {l:'Bored', i:'Bored.svg', c:'pink'}, {l:'Sick', i:'Sick.svg', c:'pink'}
-        ]}],
-        want: [{ title: "I want...", items: [
-            {l:'Bathroom', i:'Bathroom.svg', c:'purple'}, {l:'Help', i:'Help.svg', c:'purple'}, {l:'Water', i:'Water.svg', c:'purple'}, 
-            {l:'Food', i:'Food.svg', c:'purple'}, {l:'Break', i:'Break.svg', c:'purple'}, {l:'To talk', i:'To-talk.svg', c:'purple'}, 
-            {l:'To run', i:'To-run.svg', c:'purple'}, {l:'Play', i:'Play.svg', c:'purple'}, {l:'To read', i:'To-read.svg', c:'purple'}, 
-            {l:'TV', i:'Tv.svg', c:'purple'}, {l:'Quiet', i:'Quiet.svg', c:'purple'}, {l:'A hug', i:'A-hug.svg', c:'purple'}, {l:'Music', i:'Music.svg', c:'purple'}
-        ]}],
-        help: [{ title: "Emergency Help", items: [
-            {l:'Call 911', i:'Call-911.svg', c:'red'}, {l:'Call Mom', i:'Call-mom.svg', c:'red'}
-        ]}]
+        feeling: [{ title: "Feelings", items: [{l:'Happy', i:'Happy.svg', c:'pink'}, {l:'Sad', i:'Sad.svg', c:'pink'}, {l:'Sleepy', i:'Sleepy.svg', c:'pink'}, {l:'Mad', i:'Mad.svg', c:'pink'}] }],
+        want: [{ title: "Needs", items: [{l:'Water', i:'Water.svg', c:'purple'}, {l:'Food', i:'Food.svg', c:'purple'}, {l:'Toilet', i:'Bathroom.svg', c:'purple'}, {l:'Break', i:'Break.svg', c:'purple'}] }],
+        help: [{ title: "Emergency", items: [{l:'Call 911', i:'Call-911.svg', c:'red'}, {l:'Call Mom', i:'Call-mom.svg', c:'red'}] }]
     };
 
-    function getCleanIconFilename(label, originalIcon) {
-        let cleanLabel = label;
-        if (label.startsWith("To ")) {
-            cleanLabel = label.substring(3);
-        } else if (label.startsWith("A ")) {
-            cleanLabel = label.substring(2);
-        } else {
-            return originalIcon;
-        }
-        const capitalized = cleanLabel.charAt(0).toUpperCase() + cleanLabel.slice(1);
-        return `${capitalized}.svg`;
+    function renderThemeControls() {
+        const theme = document.body.dataset.theme;
+        document.getElementById('theme-controls').innerHTML = `
+            <button class="toggle-btn" onclick="setTheme('dark')" style="opacity:${theme==='dark'?'1':'0.3'}">${uiSVGs.dark}</button>
+            <button class="toggle-btn" onclick="setTheme('light')" style="opacity:${theme==='light'?'1':'0.3'}">${uiSVGs.light}</button>
+        `;
     }
 
     function render() {
-        const pContainer = document.getElementById('phrase-container');
-        pContainer.style.display = (mode === 'core') ? 'flex' : 'none';
-        
         const root = document.getElementById('grid-root');
-        const callScreen = document.getElementById('call-screen');
-        root.style.display = 'block';
-        callScreen.style.display = 'none';
         root.innerHTML = '';
+        document.getElementById('phrase-container').style.display = (mode === 'core' ? 'flex' : 'none');
+        document.getElementById('call-screen').style.display = 'none';
+        root.style.display = 'block';
 
-        vocab[mode].forEach((sec) => {
+        vocab[mode].forEach((sec, sIdx) => {
             const title = document.createElement('div');
             title.className = 'section-title';
             title.innerText = sec.title;
@@ -496,144 +377,95 @@
             sec.items.forEach((item, iIdx) => {
                 const t = document.createElement('div');
                 t.className = `tile ${item.c}`;
-                const iconFile = getCleanIconFilename(item.l, item.i);
-                t.innerHTML = `<img src="${baseIconPath}${iconFile}" alt="${item.l}"><span>${item.l}</span>`;
-
-                const startHold = () => {
-                    longPressedTriggered = false;
+                t.innerHTML = `<img src="${baseIconPath}${item.i}"><span>${item.l}</span>`;
+                
+                t.onpointerdown = () => {
+                    longPressTriggered = false;
                     t.classList.add('is-holding');
                     holdTimer = setTimeout(() => {
-                        longPressedTriggered = true;
+                        longPressTriggered = true;
                         t.classList.remove('is-holding');
-                        showEditModal(sec, iIdx);
-                    }, 3000);
+                        openEdit(sec, iIdx);
+                    }, 2500);
                 };
-
-                const endHold = () => {
-                    clearTimeout(holdTimer);
-                    t.classList.remove('is-holding');
-                };
-
-                t.onmousedown = startHold;
-                t.onmouseup = endHold;
-                t.onmouseleave = endHold;
-                t.ontouchstart = startHold;
-                t.ontouchend = endHold;
+                t.onpointerup = t.onpointerleave = () => { clearTimeout(holdTimer); t.classList.remove('is-holding'); };
 
                 t.onclick = () => {
-                    if (longPressedTriggered) {
-                        longPressedTriggered = false;
-                        return;
-                    }
-                    handleTileTap(item);
+                    if(longPressTriggered) return;
+                    handleTap(item);
                 };
-
                 grid.appendChild(t);
             });
 
-            const add = document.createElement('div');
-            add.className = 'tile add';
-            if(mode === 'help') add.style.display = 'none';
-            add.innerHTML = `<span>+ Add More</span>`;
-            add.onclick = () => showAddModal(sec);
-            grid.appendChild(add);
+            if(mode !== 'help') {
+                const add = document.createElement('div');
+                add.className = 'tile add';
+                add.innerHTML = `<span>+ Add</span>`;
+                add.onclick = () => openAdd(sec);
+                grid.appendChild(add);
+            }
             root.appendChild(grid);
         });
+        renderThemeControls();
     }
 
-    function showEditModal(section, index) {
-        const item = section.items[index];
-        currentEditTarget = { section, index };
-        document.getElementById('modalTileName').innerText = `Edit: ${item.l}`;
-        document.getElementById('editModal').style.display = 'flex';
-    }
-
-    function showAddModal(section) {
-        currentAddSection = section;
-        document.getElementById('addLabelInput').value = '';
-        document.getElementById('addIconInput').value = '';
-        document.getElementById('addModal').style.display = 'flex';
-    }
-
-    function openInfoModal() {
-        document.getElementById('infoModal').style.display = 'flex';
-    }
-
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    function processAddTile() {
-        const l = document.getElementById('addLabelInput').value;
-        let i = document.getElementById('addIconInput').value;
-        if(l && currentAddSection) {
-            i = i.charAt(0).toUpperCase() + i.slice(1);
-            if (!i.endsWith('.svg')) i += '.svg';
-            currentAddSection.items.push({l, i, c: currentAddSection.items[0]?.c || 'blue'});
-            render();
-            closeModal('addModal');
-        }
-    }
-
-    function startCall(name, icon) {
-        document.getElementById('grid-root').style.display = 'none';
-        document.getElementById('phrase-container').style.display = 'none';
-        const callScreen = document.getElementById('call-screen');
-        callScreen.style.display = 'flex';
-        document.getElementById('active-call-name').innerText = name.replace('Call ', '');
-        const iconFile = getCleanIconFilename(name, icon);
-        document.getElementById('active-call-avatar').innerHTML = `<img src="${baseIconPath}${iconFile}">`;
-    }
-
-    function endCall() { render(); }
-
-    function handleTileTap(item) {
+    function handleTap(item) {
         if (mode === 'help') {
-            startCall(item.l, item.i);
+            document.getElementById('grid-root').style.display = 'none';
+            document.getElementById('call-screen').style.display = 'flex';
+            document.getElementById('active-call-name').innerText = item.l;
+            document.getElementById('active-call-avatar').innerHTML = `<img src="${baseIconPath}${item.i}">`;
             return;
         }
         if (mode === 'core') {
             const p = document.getElementById('phrase');
-            if(p.innerText.includes('...')) p.innerText = '';
+            if (p.innerText.includes('...')) p.innerText = '';
             p.innerText += ' ' + item.l;
-        } else {
-            triggerSpeech(`${mode === 'feeling' ? 'I am feeling' : 'I want'} ${item.l}`);
+        }
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance(item.l));
+    }
+
+    function openEdit(section, index) {
+        currentTarget = { section, index };
+        document.getElementById('editTitle').innerText = `Edit: ${section.items[index].l}`;
+        openModal('editModal');
+    }
+
+    function editLabel() {
+        const newL = prompt("Enter new label:", currentTarget.section.items[currentTarget.index].l);
+        if(newL) { currentTarget.section.items[currentTarget.index].l = newL; render(); }
+        closeModal('editModal');
+    }
+
+    function deleteTile() {
+        if(confirm("Delete this tile?")) {
+            currentTarget.section.items.splice(currentTarget.index, 1);
+            render();
+        }
+        closeModal('editModal');
+    }
+
+    function openAdd(section) {
+        currentTarget = section;
+        openModal('addModal');
+    }
+
+    function confirmAdd() {
+        const l = document.getElementById('addLabel').value;
+        const i = document.getElementById('addIcon').value;
+        if(l && i) {
+            currentTarget.items.push({l, i, c: currentTarget.items[0]?.c || 'blue'});
+            render(); closeModal('addModal');
         }
     }
 
-    function triggerSpeech(text) {
-        const ut = new SpeechSynthesisUtterance(text);
-        window.speechSynthesis.speak(ut);
-    }
-
-    function speakCurrentPhrase() {
-        const text = document.getElementById('phrase').innerText;
-        if (!text.includes('...')) triggerSpeech(text);
-    }
-
-    function setTheme(t) { 
-        document.body.dataset.theme = t; 
-        const dm = document.querySelector('#darkToggle img');
-        const lm = document.querySelector('#lightToggle img');
-        
-        if (t === 'dark') {
-            dm.src = baseIconPath + "DM Activated.svg";
-            lm.src = baseIconPath + "LM Deactivated.svg";
-        } else {
-            dm.src = baseIconPath + "DM Deactivated.svg";
-            lm.src = baseIconPath + "LM Activated.svg";
-        }
-    }
-
-    function changeMode(m) {
-        mode = m;
-        document.querySelectorAll('.tab').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.mode === m);
-        });
-        const helpBtn = document.getElementById('getHelpHeaderBtn');
-        helpBtn.style.opacity = (m === 'help') ? "0.6" : "1";
-        render();
-    }
-
+    function setTheme(t) { document.body.dataset.theme = t; renderThemeControls(); }
+    function changeMode(m) { mode = m; document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === m)); render(); }
     function clearP() { document.getElementById('phrase').innerText = 'I want to...'; }
+    function speakCurrentPhrase() { window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('phrase').innerText)); }
+    function endCall() { render(); }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     render();
 </script>
