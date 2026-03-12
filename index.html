@@ -1,486 +1,594 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenVoice AAC - Pro Build</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenVoice AAC - Pro Build</title>
+    <style>
+        :root {
+            /* Shared Tile Colors */
+            --tile-blue: #2755E2;
+            --tile-purple: #7F22D9;
+            --tile-teal: #188074;
+            --tile-slate: #5C6A86;
+            --tile-pink: #BE185D;
+            --tile-add: #384152;
+            --yellow-bar: #FEF9C3;
+            --hold-color: #0D2778;
+            /* Dark Mode Specs */
+            --bg-app: #121827;
+            --bg-header: #2A3040;
+            --bg-nav: #8694AF;
+            --nav-inactive: #364C65;
+            --text-main: #FFFFFF;
+            --text-sub: #9CA3AF;
+            --nav-shadow: none;
+            /* Emergency/Help Colors */
+            --help-red: #BB2020;
+        }
 
-<style>
+        [data-theme="light"] {
+            --bg-app: #F4F6FA;
+            --bg-header: #8694AF;
+            --bg-nav: #FFFFFF;
+            --nav-inactive: #364C65;
+            --text-main: #121827;
+            --text-sub: #4B5563;
+            --nav-shadow: 0px 4px 11.9px 0px rgba(0, 0, 0, 0.25);
+        }
 
-:root{
---tile-blue:#2755E2;
---tile-purple:#7F22D9;
---tile-teal:#188074;
---tile-slate:#5C6A86;
---tile-pink:#BE185D;
---tile-add:#384152;
---yellow-bar:#FEF9C3;
---hold-color:#0D2778;
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s;
+            overflow-x: hidden;
+        }
 
---bg-app:#121827;
---bg-header:#2A3040;
---bg-nav:#8694AF;
---nav-inactive:#364C65;
+        header {
+            background-color: var(--bg-header);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
 
---text-main:#FFFFFF;
---text-sub:#9CA3AF;
---nav-shadow:none;
+        .header-logo {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
 
---help-red:#BB2020;
-}
+        .toggle-group { display: flex; gap: 8px; }
 
-[data-theme="light"]{
---bg-app:#F4F6FA;
---bg-header:#8694AF;
---bg-nav:#FFFFFF;
---nav-inactive:#364C65;
---text-main:#121827;
---text-sub:#4B5563;
---nav-shadow:0px 4px 11.9px rgba(0,0,0,.25);
-}
+        .toggle-btn {
+            width: 44px; height: 44px; border-radius: 12px;
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; background: transparent; transition: opacity 0.2s;
+        }
+        
+        .toggle-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
 
-body{
-margin:0;
-padding:0;
-background:var(--bg-app);
-color:var(--text-main);
-font-family:system-ui,-apple-system,sans-serif;
-transition:background-color .3s;
-overflow-x:hidden;
-}
+        .nav-bar {
+            background: var(--bg-nav);
+            box-shadow: var(--nav-shadow);
+            width: 100%; display: flex;
+            padding: 12px 25px; box-sizing: border-box;
+            gap: 12px; align-items: center; transition: all 0.3s;
+        }
 
-header{
-background:var(--bg-header);
-padding:15px 25px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-height:60px;
-}
+        .tab, .btn-info-nav {
+            padding: 10px 24px; border-radius: 54px; border: none;
+            background: var(--nav-inactive); color: white;
+            font-weight: 600; cursor: pointer; font-size: 14px; transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
 
-.header-logo{
-height:40px;
-max-width:200px;
-}
+        .nav-icon {
+            height: 20px;
+            width: auto;
+            margin-right: 8px;
+            pointer-events: none;
+        }
 
-.toggle-group{display:flex;gap:8px;}
+        .btn-info-nav {
+            margin-left: auto; width: 44px; height: 44px; padding: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
 
-.toggle-btn{
-width:44px;
-height:44px;
-border-radius:12px;
-border:none;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-background:transparent;
-}
+        .btn-info-nav .nav-icon {
+            margin-right: 0;
+        }
 
-.toggle-btn img{
-width:100%;
-height:100%;
-object-fit:contain;
-}
+        .tab.active[data-mode="core"] { background: var(--tile-blue); }
+        .tab.active[data-mode="feeling"] { background: var(--tile-pink); }
+        .tab.active[data-mode="want"] { background: var(--tile-purple); }
+        .tab.active[data-mode="help"] { background: var(--help-red); }
 
-.nav-bar{
-background:var(--bg-nav);
-box-shadow:var(--nav-shadow);
-width:100%;
-display:flex;
-padding:12px 25px;
-gap:12px;
-align-items:center;
-}
+        .content {
+            max-width: 1000px; margin: 0 auto; padding: 24.63px 25.4px;
+        }
 
-.tab,.btn-info-nav{
-padding:10px 24px;
-border-radius:54px;
-border:none;
-background:var(--nav-inactive);
-color:white;
-font-weight:600;
-cursor:pointer;
-font-size:14px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
+        .phrase-bar {
+            background: var(--yellow-bar); color: #121827;
+            padding: 15px; border-radius: 8px; margin-bottom: 25px;
+            display: flex; justify-content: space-between; font-weight: 600;
+        }
 
-.nav-icon{
-height:20px;
-margin-right:8px;
-}
+        /* GRID & TILE SIZES */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 7.7px; 
+        }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 10px; } }
 
-.btn-info-nav{
-margin-left:auto;
-width:44px;
-height:44px;
-padding:0;
-}
+        .tile {
+            aspect-ratio: 104.69 / 126.25; 
+            border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; cursor: pointer; position: relative;
+            color: white; font-weight: 500; font-size: 14px; text-align: center;
+            user-select: none; -webkit-user-select: none;
+            overflow: hidden; 
+        }
 
-.tab.active[data-mode="core"]{background:var(--tile-blue);}
-.tab.active[data-mode="feeling"]{background:var(--tile-pink);}
-.tab.active[data-mode="want"]{background:var(--tile-purple);}
-.tab.active[data-mode="help"]{background:var(--help-red);}
+        .tile img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 6px;
+            pointer-events: none;
+            object-fit: contain;
+        }
 
-.content{
-max-width:1000px;
-margin:0 auto;
-padding:24px 25px;
-}
+        /* HELP GRID */
+        .grid.help-grid {
+            grid-template-columns: repeat(auto-fit, 327px);
+            justify-content: center;
+            gap: 20px;
+        }
+        .tile.red { 
+            background: var(--help-red); 
+            width: 327px; 
+            height: 327.34px; 
+            aspect-ratio: auto;
+            border-radius: 20px;
+        }
+        .tile.red img { width: 120px; height: 120px; margin-bottom: 20px; }
+        .tile.red span { font-size: 28px; font-weight: 700; }
 
-.phrase-bar{
-background:var(--yellow-bar);
-color:#121827;
-padding:15px;
-border-radius:8px;
-margin-bottom:25px;
-display:flex;
-justify-content:space-between;
-font-weight:600;
-}
+        .tile::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--hold-color);
+            opacity: 0; z-index: 1;
+            transition: opacity 3s linear;
+            pointer-events: none;
+        }
+        .tile.is-holding::before { opacity: 1; }
+        .tile img, .tile span { position: relative; z-index: 2; }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:7px;
-}
+        .tile.blue { background: var(--tile-blue); }
+        .tile.purple { background: var(--tile-purple); }
+        .tile.teal { background: var(--tile-teal); }
+        .tile.slate { background: var(--tile-slate); }
+        .tile.pink { background: var(--tile-pink); }
+        .tile.add { background: var(--tile-add); border: 2px dashed rgba(255,255,255,0.2); }
 
-@media(min-width:768px){
-.grid{grid-template-columns:repeat(5,1fr);gap:10px;}
-}
+        .section-title { font-size: 14px; color: var(--text-sub); margin: 25px 0 10px; font-weight: 600; }
 
-.tile{
-aspect-ratio:104.69/126.25;
-border-radius:12px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-color:white;
-font-weight:500;
-font-size:14px;
-text-align:center;
-overflow:hidden;
-position:relative;
-}
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: var(--bg-header);
+            padding: 32px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .modal-title { margin: 0; font-size: 24px; font-weight: 700; color: var(--text-main); }
+        .modal-buttons { display: flex; flex-direction: column; gap: 12px; }
+        .modal-btn { padding: 16px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .btn-primary { background: var(--tile-blue); color: white; }
+        .btn-secondary { background: var(--tile-purple); color: white; }
+        .btn-danger { background: var(--help-red); color: white; }
+        .btn-cancel { background: var(--tile-slate); color: white; }
+        .modal-input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; color: white; font-size: 16px; }
+        
+        .info-list {
+            text-align: left;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+        }
 
-.tile img{
-width:50px;
-height:50px;
-margin-bottom:6px;
-object-fit:contain;
-}
+        /* Call Screen */
+        .call-container {
+            display: none; flex-direction: column; align-items: center; justify-content: flex-start;
+            padding-top: 60px; height: 70vh; text-align: center;
+        }
+        .call-name { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+        .call-timer { font-size: 20px; color: var(--text-sub); margin-bottom: 50px; }
+        
+        .call-avatar-tile {
+            width: 250px; height: 250px; background: var(--help-red); border-radius: 20px;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 60px;
+        }
+        .call-avatar-tile img { width: 150px; height: 150px; object-fit: contain; }
 
-.tile.red{
-background:var(--help-red);
-width:327px;
-height:327px;
-border-radius:20px;
-}
-
-.tile.blue{background:var(--tile-blue);}
-.tile.purple{background:var(--tile-purple);}
-.tile.teal{background:var(--tile-teal);}
-.tile.slate{background:var(--tile-slate);}
-.tile.pink{background:var(--tile-pink);}
-.tile.add{background:var(--tile-add);border:2px dashed rgba(255,255,255,.2);}
-
-.section-title{
-font-size:14px;
-color:var(--text-sub);
-margin:25px 0 10px;
-font-weight:600;
-}
-
-.modal-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.8);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:1000;
-}
-
-.modal-content{
-background:var(--bg-header);
-padding:32px;
-border-radius:20px;
-width:90%;
-max-width:400px;
-text-align:center;
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-.modal-title{
-font-size:24px;
-font-weight:700;
-}
-
-.modal-buttons{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-.modal-btn{
-padding:16px;
-border-radius:12px;
-border:none;
-font-weight:bold;
-cursor:pointer;
-font-size:16px;
-}
-
-.btn-primary{background:var(--tile-blue);color:white;}
-.btn-secondary{background:var(--tile-purple);color:white;}
-.btn-danger{background:var(--help-red);color:white;}
-.btn-cancel{background:var(--tile-slate);color:white;}
-
-.modal-input{
-background:rgba(255,255,255,.1);
-border:1px solid rgba(255,255,255,.2);
-padding:12px;
-border-radius:8px;
-color:white;
-font-size:16px;
-}
-
-.call-container{
-display:none;
-flex-direction:column;
-align-items:center;
-padding-top:60px;
-height:70vh;
-text-align:center;
-}
-
-.call-name{
-font-size:36px;
-font-weight:800;
-margin-bottom:8px;
-}
-
-.call-timer{
-font-size:20px;
-color:var(--text-sub);
-margin-bottom:50px;
-}
-
-.call-avatar-tile{
-width:250px;
-height:250px;
-background:var(--help-red);
-border-radius:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:60px;
-}
-
-.call-avatar-tile img{
-width:150px;
-height:150px;
-}
-
-.call-controls{
-display:flex;
-gap:15px;
-}
-
-.call-btn-tile{
-width:80px;
-height:80px;
-border-radius:12px;
-background:var(--tile-slate);
-border:none;
-color:white;
-font-size:24px;
-cursor:pointer;
-}
-
-.call-btn-tile.end{
-background:var(--help-red);
-transform:rotate(135deg);
-}
-
-</style>
+        .call-controls { display: flex; gap: 15px; align-items: center; }
+        
+        .call-btn-tile { 
+            width: 80px; height: 80px; border-radius: 12px; 
+            background: var(--tile-slate); border: none; color: white; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; cursor: pointer; 
+        }
+        .call-btn-tile.end { background: var(--help-red); transform: rotate(135deg); }
+    </style>
 </head>
-
 <body data-theme="dark">
 
 <header>
+    <button onclick="changeMode('help')" id="getHelpHeaderBtn" style="background:var(--help-red); border:none; color:white; padding:10px 24px; border-radius:30px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:8px;">
+        <span style="font-size:18px;">⚠️</span> Get help
+    </button>
+    
+    <img src="icons/Header.svg" alt="OpenVoice Header" class="header-logo">
 
-<button onclick="changeMode('help')" id="getHelpHeaderBtn"
-style="background:var(--help-red);border:none;color:white;padding:10px 24px;border-radius:30px;font-weight:bold;cursor:pointer;display:flex;gap:8px;">
-⚠️ Get help
-</button>
-
-<img src="./icons/Header.svg" class="header-logo">
-
-<div class="toggle-group">
-
-<button class="toggle-btn" onclick="setTheme('dark')" id="darkToggle">
-<img src="./icons/DM Activated.svg">
-</button>
-
-<button class="toggle-btn" onclick="setTheme('light')" id="lightToggle">
-<img src="./icons/LM Deactivated.svg">
-</button>
-
-</div>
-
+    <div class="toggle-group">
+        <button class="toggle-btn" onclick="setTheme('dark')" id="darkToggle">
+            <img src="icons/DM Activated.svg" alt="Dark Mode">
+        </button>
+        <button class="toggle-btn" onclick="setTheme('light')" id="lightToggle">
+            <img src="icons/LM Deactivated.svg" alt="Light Mode">
+        </button>
+    </div>
 </header>
 
 <nav class="nav-bar">
-
-<button class="tab active" data-mode="core" onclick="changeMode('core')">
-<img src="./icons/sentence.svg" class="nav-icon">
-Sentence building
-</button>
-
-<button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
-<img src="./icons/feel.svg" class="nav-icon">
-I am feeling
-</button>
-
-<button class="tab" data-mode="want" onclick="changeMode('want')">
-<img src="./icons/want.svg" class="nav-icon">
-I want
-</button>
-
-<button class="tab" data-mode="help" onclick="changeMode('help')">
-<img src="./icons/help.svg" class="nav-icon">
-Help
-</button>
-
-<button class="btn-info-nav" onclick="openInfoModal()">
-<img src="./icons/help.svg" class="nav-icon">
-</button>
-
+    <button class="tab active" data-mode="core" onclick="changeMode('core')">
+        <img src="icons/Sentence.svg" class="nav-icon" alt="Sentence Building">
+        Sentence building
+    </button>
+    <button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
+        <img src="icons/Feel.svg" class="nav-icon" alt="I am feeling">
+        I am feeling
+    </button>
+    <button class="tab" data-mode="want" onclick="changeMode('want')">
+        <img src="icons/Want.svg" class="nav-icon" alt="I want">
+        I want
+    </button>
+    <button class="tab" data-mode="help" onclick="changeMode('help')">
+        <img src="icons/Help.svg" class="nav-icon" alt="Help">
+        Help
+    </button>
+    <button class="btn-info-nav" onclick="openInfoModal()">
+        <img src="icons/Help.svg" class="nav-icon" alt="Info">
+    </button>
 </nav>
 
 <main class="content">
+    <div class="phrase-bar" id="phrase-container">
+        <span id="phrase">I want to...</span>
+        <div style="cursor:pointer">
+            <span onclick="speakCurrentPhrase()">🔊</span>&nbsp;&nbsp;
+            <span onclick="clearP()">🗑️</span>
+        </div>
+    </div>
 
-<div class="phrase-bar" id="phrase-container">
-<span id="phrase">I want to...</span>
+    <div id="grid-root"></div>
 
-<div>
-<span onclick="speakCurrentPhrase()">🔊</span>
-<span onclick="clearP()">🗑️</span>
-</div>
-
-</div>
-
-<div id="grid-root"></div>
-
+    <div id="call-screen" class="call-container">
+        <div class="call-name" id="active-call-name">Emergency Call</div>
+        <div class="call-timer">00:03</div>
+        <div class="call-avatar-tile" id="active-call-avatar"></div>
+        <div class="call-controls">
+            <button class="call-btn-tile">🔊</button>
+            <button class="call-btn-tile">📹</button>
+            <button class="call-btn-tile">⌗</button>
+            <button class="call-btn-tile end" onclick="endCall()">📞</button>
+        </div>
+    </div>
 </main>
 
+<div id="editModal" class="modal-overlay">
+    <div class="modal-content">
+        <h2 class="modal-title" id="modalTileName">Edit Tile</h2>
+        <div class="modal-buttons">
+            <button class="modal-btn btn-primary" id="btnEditLabel">Edit Label</button>
+            <button class="modal-btn btn-secondary" id="btnEditIcon">Edit Icon</button>
+            <button class="modal-btn btn-danger" id="btnDeleteTile">Delete Tile</button>
+            <button class="modal-btn btn-cancel" onclick="closeModal('editModal')">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="addModal" class="modal-overlay">
+    <div class="modal-content">
+        <h2 class="modal-title">Add New Tile</h2>
+        <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
+            <label style="font-size: 14px; color: var(--text-sub);">Tile Label</label>
+            <input type="text" id="addLabelInput" class="modal-input" placeholder="e.g. Pizza">
+            <label style="font-size: 14px; color: var(--text-sub);">Tile Icon (Filename)</label>
+            <input type="text" id="addIconInput" class="modal-input" placeholder="e.g. Pizza.svg">
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn btn-primary" onclick="processAddTile()">Add Tile</button>
+            <button class="modal-btn btn-cancel" onclick="closeModal('addModal')">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="infoModal" class="modal-overlay">
+    <div class="modal-content">
+        <h2 class="modal-title">Information</h2>
+        <ul class="info-list">
+            <li>Help / more info coming soon</li>
+            <li>Progressive onboarding coming soon</li>
+            <li>Haptic feedback coming soon</li>
+        </ul>
+        <div class="modal-buttons">
+            <button class="modal-btn btn-cancel" onclick="closeModal('infoModal')">Close</button>
+        </div>
+    </div>
+</div>
+
 <script>
+    const baseIconPath = 'icons/';
 
-const baseIconPath="./icons/";
+    let mode = 'core';
+    let holdTimer;
+    let longPressedTriggered = false;
+    let currentEditTarget = null;
+    let currentAddSection = null;
 
-let mode="core";
+    const vocab = {
+        core: [
+            { title: "Question Words", items: [
+                {l:'What', i:'What.svg', c:'blue'}, {l:'Where', i:'Where.svg', c:'blue'}, {l:'When', i:'When.svg', c:'blue'}, 
+                {l:'Who', i:'Who.svg', c:'blue'}, {l:'Why', i:'Why.svg', c:'blue'}, {l:'How', i:'How.svg', c:'blue'}
+            ]},
+            { title: "People / Places", items: [
+                {l:'I', i:'I.svg', c:'blue'}, {l:'You', i:'You.svg', c:'blue'}, {l:'We', i:'We.svg', c:'blue'}, 
+                {l:'They', i:'They.svg', c:'blue'}, {l:'She', i:'She.svg', c:'blue'},
+                {l:'Time', i:'Time.svg', c:'blue'}, {l:'Friend', i:'Friend.svg', c:'blue'}, {l:'School', i:'School.svg', c:'blue'},
+                {l:'Home', i:'Home.svg', c:'blue'}, {l:'Family', i:'Family.svg', c:'blue'}, {l:'Doctor', i:'Doctor.svg', c:'blue'}
+            ]},
+            { title: "Negation", items: [
+                {l:'No', i:'No.svg', c:'slate'}, {l:'Not', i:'Not.svg', c:'slate'}, {l:'Don’t', i:'Dont.svg', c:'slate'}
+            ]},
+            { title: "Needs & Wants", items: [
+                {l:'Want', i:'Want.svg', c:'purple'}, {l:'Need', i:'Need.svg', c:'purple'}, {l:'Like', i:'Like.svg', c:'purple'}, 
+                {l:'Have', i:'Have.svg', c:'purple'}, {l:'See', i:'See.svg', c:'purple'}, {l:'Go', i:'Go.svg', c:'purple'}, 
+                {l:'Eat', i:'Eat.svg', c:'purple'}, {l:'Drink', i:'Drink.svg', c:'purple'}, {l:'Play', i:'Play.svg', c:'purple'}
+            ]},
+            { title: "Actions", items: [
+                {l:'Water', i:'Water.svg', c:'teal'}, {l:'Food', i:'Food.svg', c:'teal'}, {l:'Help', i:'Help.svg', c:'teal'}, 
+                {l:'Break', i:'Break.svg', c:'teal'}, {l:'Bathroom', i:'Bathroom.svg', c:'teal'}, {l:'Sleep', i:'Sleep.svg', c:'teal'}, 
+                {l:'Music', i:'Music.svg', c:'teal'}, {l:'Stop', i:'Stop.svg', c:'teal'}
+            ]},
+            { title: "Descriptors", items: [
+                {l:'Big', i:'Big.svg', c:'pink'}, {l:'Small', i:'Small.svg', c:'pink'}, {l:'Hot', i:'Hot.svg', c:'pink'}, 
+                {l:'Cold', i:'Cold.svg', c:'pink'}, {l:'Fast', i:'Fast.svg', c:'pink'}, {l:'Slow', i:'Slow.svg', c:'pink'}, 
+                {l:'Loud', i:'Loud.svg', c:'pink'}, {l:'Quiet', i:'Quiet.svg', c:'pink'}, {l:'Good', i:'Good.svg', c:'pink'}, 
+                {l:'Bad', i:'Bad.svg', c:'pink'}, {l:'Clean', i:'Clean.svg', c:'pink'}, {l:'Dirty', i:'Dirty.svg', c:'pink'}, 
+                {l:'Easy', i:'Easy.svg', c:'pink'}, {l:'Hard', i:'Hard.svg', c:'pink'}
+            ]},
+            { title: "Quantifiers", items: [
+                {l:'More', i:'More.svg', c:'slate'}, {l:'Less', i:'Less.svg', c:'slate'}, {l:'Very', i:'Very.svg', c:'slate'}, 
+                {l:'A lot', i:'A-lot.svg', c:'slate'}, {l:'A little', i:'A-little.svg', c:'slate'}, {l:'Too', i:'Too.svg', c:'slate'}, 
+                {l:'All', i:'All.svg', c:'slate'}, {l:'Some', i:'Some.svg', c:'slate'}, {l:'None', i:'None.svg', c:'slate'}
+            ]},
+            { title: "Connectors", items: [
+                {l:'And', i:'And.svg', c:'slate'}, {l:'Or', i:'Or.svg', c:'slate'}, {l:'Because', i:'Because.svg', c:'slate'}, 
+                {l:'If', i:'If.svg', c:'slate'}, {l:'But', i:'But.svg', c:'slate'}
+            ]},
+            { title: "Time Words", items: [
+                {l:'Before', i:'Before.svg', c:'slate'}, {l:'After', i:'After.svg', c:'slate'}, {l:'Today', i:'Today.svg', c:'slate'}, 
+                {l:'Tomorrow', i:'Tomorrow.svg', c:'slate'}, {l:'Yesterday', i:'Yesterday.svg', c:'slate'}, {l:'Soon', i:'Soon.svg', c:'slate'},
+                {l:'Now', i:'Now.svg', c:'slate'}, {l:'Later', i:'Later.svg', c:'slate'}, {l:'Yes', i:'Yes.svg', c:'slate'}
+            ]},
+            { title: "Social / Polite", items: [
+                {l:'Hello', i:'Hello.svg', c:'teal'}, {l:'Goodbye', i:'Goodbye.svg', c:'teal'}, {l:'Please', i:'Please.svg', c:'teal'}, 
+                {l:'Thank you', i:'Thank-you.svg', c:'teal'}, {l:'Sorry', i:'Sorry.svg', c:'teal'}, {l:'My turn', i:'My-turn.svg', c:'teal'}, 
+                {l:'Your turn', i:'Your-turn.svg', c:'teal'}
+            ]}
+        ],
+        feeling: [{ title: "Feelings", items: [
+            {l:'Sleepy', i:'Sleepy.svg', c:'pink'}, {l:'Happy', i:'Happy.svg', c:'pink'}, {l:'Sad', i:'Sad.svg', c:'pink'}, 
+            {l:'Mad', i:'Mad.svg', c:'pink'}, {l:'Surprised', i:'Surprised.svg', c:'pink'}, {l:'Confused', i:'Confused.svg', c:'pink'},
+            {l:'Scared', i:'Scared.svg', c:'pink'}, {l:'Excited', i:'Excited.svg', c:'pink'}, {l:'Frustrated', i:'Frustrated.svg', c:'pink'},
+            {l:'Calm', i:'Calm.svg', c:'pink'}, {l:'Proud', i:'Proud.svg', c:'pink'}, {l:'Bored', i:'Bored.svg', c:'pink'}, {l:'Sick', i:'Sick.svg', c:'pink'}
+        ]}],
+        want: [{ title: "I want...", items: [
+            {l:'Bathroom', i:'Bathroom.svg', c:'purple'}, {l:'Help', i:'Help.svg', c:'purple'}, {l:'Water', i:'Water.svg', c:'purple'}, 
+            {l:'Food', i:'Food.svg', c:'purple'}, {l:'Break', i:'Break.svg', c:'purple'}, {l:'To talk', i:'To-talk.svg', c:'purple'}, 
+            {l:'To run', i:'To-run.svg', c:'purple'}, {l:'Play', i:'Play.svg', c:'purple'}, {l:'To read', i:'To-read.svg', c:'purple'}, 
+            {l:'TV', i:'Tv.svg', c:'purple'}, {l:'Quiet', i:'Quiet.svg', c:'purple'}, {l:'A hug', i:'A-hug.svg', c:'purple'}, {l:'Music', i:'Music.svg', c:'purple'}
+        ]}],
+        help: [{ title: "Emergency Help", items: [
+            {l:'Call 911', i:'Call-911.svg', c:'red'}, {l:'Call Mom', i:'Call-mom.svg', c:'red'}
+        ]}]
+    };
 
-const vocab={
-core:[
-{title:"Question Words",items:[
-{l:"What",i:"what.svg",c:"blue"},
-{l:"Where",i:"where.svg",c:"blue"},
-{l:"When",i:"when.svg",c:"blue"},
-{l:"Who",i:"who.svg",c:"blue"},
-{l:"Why",i:"why.svg",c:"blue"},
-{l:"How",i:"how.svg",c:"blue"}
-]},
-{title:"People / Places",items:[
-{l:"I",i:"i.svg",c:"blue"},
-{l:"You",i:"you.svg",c:"blue"},
-{l:"We",i:"we.svg",c:"blue"},
-{l:"They",i:"they.svg",c:"blue"},
-{l:"She",i:"she.svg",c:"blue"},
-{l:"Time",i:"time.svg",c:"blue"},
-{l:"Friend",i:"friend.svg",c:"blue"},
-{l:"School",i:"school.svg",c:"blue"},
-{l:"Home",i:"home.svg",c:"blue"},
-{l:"Family",i:"family.svg",c:"blue"},
-{l:"Doctor",i:"doctor.svg",c:"blue"}
-]}
-]
-};
+    function render() {
+        const pContainer = document.getElementById('phrase-container');
+        pContainer.style.display = (mode === 'core') ? 'flex' : 'none';
+        
+        const root = document.getElementById('grid-root');
+        const callScreen = document.getElementById('call-screen');
+        root.style.display = 'block';
+        callScreen.style.display = 'none';
+        root.innerHTML = '';
 
-function render(){
+        vocab[mode].forEach((sec) => {
+            const title = document.createElement('div');
+            title.className = 'section-title';
+            title.innerText = sec.title;
+            root.appendChild(title);
 
-const root=document.getElementById("grid-root");
-root.innerHTML="";
+            const grid = document.createElement('div');
+            grid.className = (mode === 'help') ? 'grid help-grid' : 'grid';
 
-vocab[mode].forEach(sec=>{
+            sec.items.forEach((item, iIdx) => {
+                const t = document.createElement('div');
+                t.className = `tile ${item.c}`;
+                t.innerHTML = `<img src="${baseIconPath}${item.i}" alt="${item.l}"><span>${item.l}</span>`;
 
-const title=document.createElement("div");
-title.className="section-title";
-title.innerText=sec.title;
-root.appendChild(title);
+                const startHold = () => {
+                    longPressedTriggered = false;
+                    t.classList.add('is-holding');
+                    holdTimer = setTimeout(() => {
+                        longPressedTriggered = true;
+                        t.classList.remove('is-holding');
+                        showEditModal(sec, iIdx);
+                    }, 3000);
+                };
 
-const grid=document.createElement("div");
-grid.className="grid";
+                const endHold = () => {
+                    clearTimeout(holdTimer);
+                    t.classList.remove('is-holding');
+                };
 
-sec.items.forEach(item=>{
+                t.onmousedown = startHold;
+                t.onmouseup = endHold;
+                t.onmouseleave = endHold;
+                t.ontouchstart = startHold;
+                t.ontouchend = endHold;
 
-const tile=document.createElement("div");
-tile.className=`tile ${item.c}`;
+                t.onclick = () => {
+                    if (longPressedTriggered) {
+                        longPressedTriggered = false;
+                        return;
+                    }
+                    handleTileTap(item);
+                };
 
-const iconFile=item.i.charAt(0).toUpperCase()+item.i.slice(1);
+                grid.appendChild(t);
+            });
 
-tile.innerHTML=`<img src="${baseIconPath}${iconFile}"><span>${item.l}</span>`;
+            const add = document.createElement('div');
+            add.className = 'tile add';
+            if(mode === 'help') add.style.display = 'none';
+            add.innerHTML = `<span>+ Add More</span>`;
+            add.onclick = () => showAddModal(sec);
+            grid.appendChild(add);
+            root.appendChild(grid);
+        });
+    }
 
-tile.onclick=()=>handleTileTap(item);
+    function showEditModal(section, index) {
+        const item = section.items[index];
+        currentEditTarget = { section, index };
+        document.getElementById('modalTileName').innerText = `Edit: ${item.l}`;
+        document.getElementById('editModal').style.display = 'flex';
+    }
 
-grid.appendChild(tile);
+    function showAddModal(section) {
+        currentAddSection = section;
+        document.getElementById('addLabelInput').value = '';
+        document.getElementById('addIconInput').value = '';
+        document.getElementById('addModal').style.display = 'flex';
+    }
 
-});
+    function openInfoModal() {
+        document.getElementById('infoModal').style.display = 'flex';
+    }
 
-root.appendChild(grid);
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-});
+    function processAddTile() {
+        const l = document.getElementById('addLabelInput').value;
+        let i = document.getElementById('addIconInput').value;
+        if(l && currentAddSection) {
+            // Ensure first letter of input icon is capitalized
+            i = i.charAt(0).toUpperCase() + i.slice(1);
+            if (!i.endsWith('.svg')) i += '.svg';
+            currentAddSection.items.push({l, i, c: currentAddSection.items[0]?.c || 'blue'});
+            render();
+            closeModal('addModal');
+        }
+    }
 
-}
+    function startCall(name, icon) {
+        document.getElementById('grid-root').style.display = 'none';
+        document.getElementById('phrase-container').style.display = 'none';
+        const callScreen = document.getElementById('call-screen');
+        callScreen.style.display = 'flex';
+        document.getElementById('active-call-name').innerText = name.replace('Call ', '');
+        document.getElementById('active-call-avatar').innerHTML = `<img src="${baseIconPath}${icon}">`;
+    }
 
-function handleTileTap(item){
+    function endCall() { render(); }
 
-if(mode==="core"){
-const p=document.getElementById("phrase");
-if(p.innerText.includes("..."))p.innerText="";
-p.innerText+=" "+item.l;
-}else{
-const speech=new SpeechSynthesisUtterance((mode==="feeling"?"I am feeling ":"I want ")+item.l);
-speechSynthesis.speak(speech);
-}
+    function handleTileTap(item) {
+        if (mode === 'help') {
+            startCall(item.l, item.i);
+            return;
+        }
+        if (mode === 'core') {
+            const p = document.getElementById('phrase');
+            if(p.innerText.includes('...')) p.innerText = '';
+            p.innerText += ' ' + item.l;
+        } else {
+            triggerSpeech(`${mode === 'feeling' ? 'I am feeling' : 'I want'} ${item.l}`);
+        }
+    }
 
-}
+    function triggerSpeech(text) {
+        const ut = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(ut);
+    }
 
-function setTheme(t){
-document.body.dataset.theme=t;
-}
+    function speakCurrentPhrase() {
+        const text = document.getElementById('phrase').innerText;
+        if (!text.includes('...')) triggerSpeech(text);
+    }
 
-function changeMode(m){
-mode=m;
-render();
-}
+    function setTheme(t) { 
+        document.body.dataset.theme = t; 
+        const dm = document.querySelector('#darkToggle img');
+        const lm = document.querySelector('#lightToggle img');
+        
+        if (t === 'dark') {
+            dm.src = baseIconPath + "DM Activated.svg";
+            lm.src = baseIconPath + "LM Deactivated.svg";
+        } else {
+            dm.src = baseIconPath + "DM Deactivated.svg";
+            lm.src = baseIconPath + "LM Activated.svg";
+        }
+    }
 
-function clearP(){
-document.getElementById("phrase").innerText="I want to...";
-}
+    function changeMode(m) {
+        mode = m;
+        document.querySelectorAll('.tab').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === m);
+        });
+        const helpBtn = document.getElementById('getHelpHeaderBtn');
+        helpBtn.style.opacity = (m === 'help') ? "0.6" : "1";
+        render();
+    }
 
-render();
+    function clearP() { document.getElementById('phrase').innerText = 'I want to...'; }
 
+    render();
 </script>
-
 </body>
 </html>
