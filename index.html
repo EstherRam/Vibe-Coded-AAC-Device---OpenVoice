@@ -500,7 +500,11 @@
                 const t = document.createElement('div');
                 t.className = `tile ${item.c}`;
                 const iconFile = getCleanIconFilename(item.l, item.i);
-                t.innerHTML = `<img src="${baseIconPath}${iconFile}" alt="${item.l}"><span>${item.l}</span>`;
+                t.innerHTML = `
+<div class="tile-icon">
+    <img src="${baseIconPath}${iconFile}" alt="${item.l}">
+</div>
+<span>${item.l}</span>`;
 
                 const startHold = () => {
                     longPressedTriggered = false;
