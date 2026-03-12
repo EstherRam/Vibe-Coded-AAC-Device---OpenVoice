@@ -168,6 +168,11 @@
 
     margin-bottom: 8px;
 }
+.add-plus {
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 1;
+}
         
 .tile img {
     width: 140%;
@@ -217,11 +222,12 @@
         .tile.teal { background: var(--tile-teal); }
         .tile.slate { background: var(--tile-slate); }
         .tile.pink { background: var(--tile-pink); }
-       .tile.add {
+.tile.add {
     background: var(--tile-add);
     border: 2px dashed rgba(255,255,255,0.2);
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
@@ -460,7 +466,7 @@
         ],
         feeling: [{ title: "Feelings", items: [
             {l:'Sleepy', i:'Sleepy.svg', c:'pink'}, {l:'Happy', i:'Happy.svg', c:'pink'}, {l:'Sad', i:'Sad.svg', c:'pink'}, 
-            {l:'Mad', i:'Mad.svg', c:'pink'}, {l:'Surprised', i:'Surprised.svg', c:'pink'}, {l:'Confused', i:'Confused.svg', c:'pink'},
+            {l:'Angry', i:'Angry.svg', c:'pink'}, {l:'Surprised', i:'Surprised.svg', c:'pink'}, {l:'Confused', i:'Confused.svg', c:'pink'},
             {l:'Scared', i:'Scared.svg', c:'pink'}, {l:'Excited', i:'Excited.svg', c:'pink'}, {l:'Frustrated', i:'Frustrated.svg', c:'pink'},
             {l:'Calm', i:'Calm.svg', c:'pink'}, {l:'Proud', i:'Proud.svg', c:'pink'}, {l:'Bored', i:'Bored.svg', c:'pink'}, {l:'Sick', i:'Sick.svg', c:'pink'}
         ]}],
@@ -468,7 +474,7 @@
             {l:'Bathroom', i:'Bathroom.svg', c:'purple'}, {l:'Help', i:'Help.svg', c:'purple'}, {l:'Water', i:'Water.svg', c:'purple'}, 
             {l:'Food', i:'Food.svg', c:'purple'}, {l:'Break', i:'Break.svg', c:'purple'}, {l:'To talk', i:'To-talk.svg', c:'purple'}, 
             {l:'To run', i:'To-run.svg', c:'purple'}, {l:'Play', i:'Play.svg', c:'purple'}, {l:'To read', i:'To-read.svg', c:'purple'}, 
-            {l:'TV', i:'Tv.svg', c:'purple'}, {l:'Quiet', i:'Quiet.svg', c:'purple'}, {l:'A hug', i:'A-hug.svg', c:'purple'}, {l:'Music', i:'Music.svg', c:'purple'}
+            {l:'TV', i:'TV.svg', c:'purple'}, {l:'Quiet', i:'Quiet.svg', c:'purple'}, {l:'A hug', i:'A-hug.svg', c:'purple'}, {l:'Music', i:'Music.svg', c:'purple'}
         ]}],
         help: [{ title: "Emergency Help", items: [
             {l:'Call 911', i:'Call-911.svg', c:'red'}, {l:'Call Mom', i:'Call-mom.svg', c:'red'}
@@ -552,7 +558,11 @@ t.innerHTML = `
             const add = document.createElement('div');
             add.className = 'tile add';
             if(mode === 'help') add.style.display = 'none';
-            add.innerHTML = `<span>+ Add More</span>`;
+            add.innerHTML = `
+<div class="tile-icon">
+    <span class="add-plus">+</span>
+</div>
+<span>Add More</span>`;
             add.onclick = () => showAddModal(sec);
             grid.appendChild(add);
             root.appendChild(grid);
