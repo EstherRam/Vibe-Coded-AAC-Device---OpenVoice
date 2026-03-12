@@ -86,27 +86,31 @@
         }
 
         .tab, .btn-info-nav {
-            padding: 10px 24px; border-radius: 54px; border: none;
+            padding: 10px 24px; border-radius: 20px; border: none;
             background: var(--nav-inactive); color: white;
             font-weight: 600; cursor: pointer; font-size: 14px; transition: background 0.2s;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center;
         }
 
         .nav-icon {
-            height: 26px;
-            width: auto;
-            margin-right: 10px;
+            width: 82px;
+            height: 96px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 6px auto;
             pointer-events: none;
-            vertical-align: middle;
         }
 
         .btn-info-nav {
-            margin-left: auto; width: 44px; height: 44px; padding: 0;
+            margin-left: auto; width: auto; height: auto; padding: 10px;
             display: flex; align-items: center; justify-content: center;
         }
 
         .btn-info-nav .nav-icon {
-            margin-right: 0;
+            margin-bottom: 0;
+            width: 44px;
+            height: 44px;
         }
 
         .tab.active[data-mode="core"] { background: var(--tile-blue); }
@@ -266,15 +270,15 @@
 <nav class="nav-bar">
     <button class="tab active" data-mode="core" onclick="changeMode('core')">
         <img src="icons/Sentence.svg" class="nav-icon" alt="Sentence Building">
-        Sentence building
+        <span>Sentence building</span>
     </button>
     <button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
         <img src="icons/Feel.svg" class="nav-icon" alt="I am feeling">
-        I am feeling
+        <span>I am feeling</span>
     </button>
     <button class="tab" data-mode="want" onclick="changeMode('want')">
         <img src="icons/Want.svg" class="nav-icon" alt="I want">
-        I want
+        <span>I want</span>
     </button>
     <button class="btn-info-nav" onclick="openInfoModal()">
         <img src="icons/Help.svg" class="nav-icon" alt="Info">
