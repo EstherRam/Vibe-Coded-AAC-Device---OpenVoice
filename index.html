@@ -138,40 +138,35 @@
         @media (min-width: 768px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 10px; } }
 
         .tile {
-            aspect-ratio: 104.69 / 126.25; 
-            border-radius: 12px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            justify-content: center; /* Centered layout */
-            cursor: pointer; 
-            position: relative;
-            color: white; 
-            text-align: center;
-            user-select: none; 
-            -webkit-user-select: none;
-            overflow: hidden; 
-            padding: 20px 6px 18px 6px; /* Increased top padding to push icon down */
-            box-sizing: border-box;
-        }
+    aspect-ratio: 104.69 / 126.25;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;   /* KEY CHANGE */
+    cursor: pointer;
+    position: relative;
+    color: white;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+    padding-top: 28px;             /* pushes icon down */
+}
 
-        .tile img {
-            width: 90%;
-            height: auto;
-            max-height: 70%;
-            object-fit: contain;
-            margin-top: 10px; /* Shift icon downward */
-            margin-bottom: 8px; /* Tighter gap with text */
-            pointer-events: none;
-        }
+.tile img {
+    width: 92%;
+    max-height: 70%;
+    object-fit: contain;
+    margin-bottom: 6px;
+}
 
-        .tile span {
-            font-size: 24px;
-            font-weight: 400;
-            margin-top: 4px; 
-            transform: translateY(-6px); /* Shift label upward */
-            z-index: 2;
-        }
+.tile span {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: auto;              /* pushes label upward */
+    padding-bottom: 18px;
+}
 
         /* HELP GRID */
         .grid.help-grid {
