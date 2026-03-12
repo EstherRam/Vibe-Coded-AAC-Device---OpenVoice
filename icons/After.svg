@@ -1,0 +1,16 @@
+<svg width="136" height="164" viewBox="0 0 136 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_1353_867" fill="white">
+<rect x="37" y="97.5098" width="22.6667" height="22.1459" rx="0.795699"/>
+</mask>
+<rect x="37" y="97.5098" width="22.6667" height="22.1459" rx="0.795699" stroke="white" stroke-width="7" mask="url(#path-1-inside-1_1353_867)"/>
+<mask id="path-2-inside-2_1353_867" fill="white">
+<rect x="37" y="71.7549" width="22.6667" height="22.1459" rx="0.795699"/>
+</mask>
+<rect x="37" y="71.7549" width="22.6667" height="22.1459" rx="0.795699" stroke="white" stroke-width="7" mask="url(#path-2-inside-2_1353_867)"/>
+<mask id="path-3-inside-3_1353_867" fill="white">
+<rect x="37" y="46" width="22.6667" height="22.1459" rx="0.795699"/>
+</mask>
+<rect x="37" y="46" width="22.6667" height="22.1459" rx="0.795699" stroke="white" stroke-width="7" mask="url(#path-3-inside-3_1353_867)"/>
+<path d="M95.7998 121.5L63.7998 121.5" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M61.3292 120.656C60.7107 121.049 60.7107 121.951 61.3292 122.344L65.9639 125.288C66.6297 125.71 67.5 125.232 67.5 124.443V118.557C67.5 117.768 66.6297 117.29 65.9639 117.712L61.3292 120.656Z" fill="white"/>
+</svg>
