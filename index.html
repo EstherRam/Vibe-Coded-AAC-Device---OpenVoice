@@ -49,57 +49,50 @@
 
 header {
     background-color: var(--bg-header);
-    height: 90px;
-    padding-bottom: 40px;
-    position: relative;
-    display: flex;
+    min-height: 90px;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: center;
+
+    padding: 12px 24px;
 }
-        .header-logo {
-           max-width: 60%;
-            height: auto;
-            padding-top: 40px;
-            object-fit: contain;
-        }
+.header-logo {
+    height: clamp(48px, 8vw, 80px);
+    justify-self: center;
+}
 
 #getHelpHeaderBtn {
-    position: absolute;
-    top: 13px;
-    left: 25px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
     background: var(--help-red);
     border: none;
     color: white;
 
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    padding: 6px 14px;
+    padding: clamp(6px, 1vw, 10px) clamp(12px, 2vw, 18px);
     border-radius: 28px;
 
     font-size: 18px;
     font-weight: 600;
 
     cursor: pointer;
+    white-space: nowrap;
 }
+
 #getHelpHeaderBtn img {
-    height: 18px;
+    height: clamp(16px, 2vw, 20px);
 }
 
 .toggle-group {
-    position: absolute;
-    top: 13px;
-    right: 25px;
-
     display: flex;
-    gap: 6px;
+    gap: clamp(4px, 1vw, 8px);
 }
 
 .toggle-btn {
-    width: 36px;
-    height: 36px;
+    width: clamp(32px, 4vw, 40px);
+    height: clamp(32px, 4vw, 40px);
 
     border-radius: 10px;
     border: none;
@@ -113,8 +106,8 @@ header {
 }
 
 .toggle-btn img {
-    width: 20px;
-    height: 20px;
+    width: 60%;
+    height: 60%;
     object-fit: contain;
 }
 
@@ -123,7 +116,7 @@ header {
     box-shadow: var(--nav-shadow);
 
     width: 100%;
-    padding: 12px 25px;
+    padding: 12px 24px;
 
     display: flex;
     align-items: center;
@@ -132,20 +125,30 @@ header {
     overflow-x: auto;
 }
 
-.tab, .btn-info-nav {
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     padding: 10px 24px;
     border-radius: 54px;
+
     border: none;
     background: var(--nav-inactive);
     color: white;
+
     font-weight: 600;
     cursor: pointer;
+
+    white-space: nowrap;
+
     font-size: 18px;
 }
-@media (min-width: 768px) {
-    .tab, .btn-info-nav {
-        font-size: 24px;
-    }
+
+@media (min-width:768px){
+.tab{
+    font-size:24px;
+}
 }
         .nav-icon {
             height: clamp(18px, 2.5vw, 28px);
@@ -184,15 +187,14 @@ header {
         /* GRID & TILE SIZES */
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 24px;
 }
-       @media (min-width: 768px) {
 
-.grid {
-    grid-template-columns: repeat(5, 1fr);
+@media (min-width:768px){
+.grid{
+    grid-template-columns: repeat(5,1fr);
 }
-
 }
 
 .tile {
@@ -233,7 +235,6 @@ header {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    pointer-events: none;
 }
         
 .tile span {
@@ -290,13 +291,12 @@ header {
 }
         .tile.add span { margin-top: 0; padding-bottom: 0; transform: none; }
 
-        .section-title { 
-            grid-column: 1 / -1:
-            font-size: 24px; 
-            font-weight: 300;
-            color: var(--text-sub); 
-            margin: 24px 0 16px 0; 
-        }
+.section-title {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-sub);
+    margin: 24px 0 16px 0;
+}
 
         /* Modals */
         .modal-overlay {
