@@ -1,65 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenVoice AAC - Pro Build</title>
-    <style>
-        :root {
-            /* Shared Tile f */
-            --tile-blue: #2755E2;
-            --tile-purple: #7F22D9;
-            --tile-teal: #188074;
-            --tile-slate: #5C6A86;
-            --tile-pink: #BE185D;
-            --tile-add: #384152;
-            --yellow-bar: #FEF9C3;
-            --hold-color: #0D2778;
-            /* Dark Mode Specs */
-            --bg-app: #121827;
-            --bg-header: #2A3040;
-            --bg-nav: #8694AF;
-            --nav-inactive: #364C65;
-            --text-main: #FFFFFF;
-            --text-sub: #9CA3AF;
-            --nav-shadow: none;
-            /* Emergency/Help Colors */
-            --help-red: #BB2020;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenVoice AAC - Pro Build</title>
 
-        [data-theme="light"] {
-            --bg-app: #F4F6FA;
-            --bg-header: #8694AF;
-            --bg-nav: #FFFFFF;
-            --nav-inactive: #364C65;
-            --text-main: #121827;
-            --text-sub: #4B5563;
-            --nav-shadow: 0px 4px 11.9px 0px rgba(0, 0, 0, 0.25);
-        }
+<style>
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-app);
-            color: var(--text-main);
-            font-family: system-ui, -apple-system, sans-serif;
-            transition: background-color 0.3s;
-            overflow-x: hidden;
-        }
+/* ---------------- ROOT ---------------- */
+
+:root{
+--tile-blue:#2755E2;
+--tile-purple:#7F22D9;
+--tile-teal:#188074;
+--tile-slate:#5C6A86;
+--tile-pink:#BE185D;
+--tile-add:#384152;
+
+--yellow-bar:#FEF9C3;
+--hold-color:#0D2778;
+
+--bg-app:#121827;
+--bg-header:#2A3040;
+--bg-nav:#8694AF;
+--nav-inactive:#364C65;
+
+--text-main:#FFFFFF;
+--text-sub:#9CA3AF;
+
+--nav-shadow:none;
+
+--help-red:#BB2020;
+}
+
+[data-theme="light"]{
+--bg-app:#F4F6FA;
+--bg-header:#8694AF;
+--bg-nav:#FFFFFF;
+--nav-inactive:#364C65;
+--text-main:#121827;
+--text-sub:#4B5563;
+--nav-shadow:0px 4px 11.9px rgba(0,0,0,0.25);
+}
+
+body{
+margin:0;
+background:var(--bg-app);
+color:var(--text-main);
+font-family:system-ui,-apple-system,sans-serif;
+overflow-x:hidden;
+}
+
+/* ---------------- HEADER ---------------- */
 
 header{
-    background:var(--bg-header);
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    align-items:center;
+background:var(--bg-header);
+display:grid;
+grid-template-columns:auto 1fr auto;
+align-items:center;
+padding:12px 24px;
+min-height:90px;
+}
 
-    height:90px;
-    padding:0 24px;
+.header-logo{
+height:clamp(48px,7vw,80px);
+justify-self:center;
 }
-.header-logo {
-    height: clamp(48px, 8vw, 80px);
-    justify-self: center;
-}
+
+/* Get Help */
 
 #getHelpHeaderBtn{
 display:flex;
@@ -73,7 +81,14 @@ border-radius:28px;
 font-size:18px;
 font-weight:600;
 cursor:pointer;
+white-space:nowrap;
 }
+
+#getHelpHeaderBtn img{
+height:18px;
+}
+
+/* Toggles */
 
 .toggle-group{
 display:flex;
@@ -81,102 +96,102 @@ gap:6px;
 justify-self:end;
 }
 
-#getHelpHeaderBtn img {
-    height: clamp(16px, 2vw, 20px);
+.toggle-btn{
+width:36px;
+height:36px;
+border-radius:10px;
+border:none;
+display:flex;
+align-items:center;
+justify-content:center;
+background:transparent;
+cursor:pointer;
 }
 
-.toggle-btn {
-    width: clamp(32px, 4vw, 40px);
-    height: clamp(32px, 4vw, 40px);
-
-    border-radius: 10px;
-    border: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: transparent;
-    cursor: pointer;
+.toggle-btn img{
+width:60%;
+height:60%;
 }
 
-.toggle-btn img {
-    width: 60%;
-    height: 60%;
-    object-fit: contain;
-}
+/* ---------------- NAV ---------------- */
 
 .nav-bar{
 background:var(--bg-nav);
 box-shadow:var(--nav-shadow);
-
 display:grid;
 grid-template-columns:1fr 1fr 1fr auto;
-
 gap:12px;
 padding:12px 24px;
 }
 
-.tab {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 10px 24px;
-    border-radius: 54px;
-
-    border: none;
-    background: var(--nav-inactive);
-    color: white;
-
-    font-weight: 600;
-    cursor: pointer;
-
-    white-space: nowrap;
-
-    font-size: 18px;
-}
-
-@media (min-width:768px){
 .tab{
-    font-size:24px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+padding:10px 20px;
+border-radius:54px;
+border:none;
+background:var(--nav-inactive);
+color:white;
+font-weight:600;
+cursor:pointer;
+white-space:nowrap;
+font-size:18px;
 }
+
+@media(min-width:768px){
+.tab{font-size:24px;}
 }
-        .nav-icon {
-            height: clamp(18px, 2.5vw, 28px);
-            width: auto;
-            margin-right: 8px;
-            pointer-events: none;
-        }
 
-        .btn-info-nav {
-            margin-left: auto; width: 44px; height: 44px; padding: 0;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .btn-info-nav .nav-icon {
-            margin-right: 0;
-        }
-
-        .tab.active[data-mode="core"] { background: var(--tile-blue); }
-        .tab.active[data-mode="feeling"] { background: var(--tile-pink); }
-        .tab.active[data-mode="want"] { background: var(--tile-purple); }
-        .tab.active[data-mode="help"] { background: var(--help-red); }
-
-.content {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px;
-    box-sizing: border-box;
+.nav-icon{
+height:24px;
 }
-        .phrase-bar {
-            background: var(--yellow-bar); color: #121827;
-            padding: 15px; border-radius: 8px; margin-bottom: 32px;
-            display: flex; justify-content: space-between; font-weight: 600;
-        }
 
-        /* GRID & TILE SIZES */
+.btn-info-nav{
+width:44px;
+height:44px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:var(--nav-inactive);
+border:none;
+}
+
+.tab.active[data-mode="core"]{background:var(--tile-blue);}
+.tab.active[data-mode="feeling"]{background:var(--tile-pink);}
+.tab.active[data-mode="want"]{background:var(--tile-purple);}
+.tab.active[data-mode="help"]{background:var(--help-red);}
+
+/* ---------------- CONTENT ---------------- */
+
+.content{
+max-width:1200px;
+margin:auto;
+padding:24px;
+}
+
+.phrase-bar{
+background:var(--yellow-bar);
+color:#121827;
+padding:16px;
+border-radius:10px;
+margin-bottom:32px;
+display:flex;
+justify-content:space-between;
+font-weight:600;
+}
+
+.section-title{
+font-size:24px;
+font-weight:300;
+color:var(--text-sub);
+margin:24px 0 16px 0;
+}
+
+/* ---------------- GRID ---------------- */
+
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -189,277 +204,308 @@ grid-template-columns:repeat(5,1fr);
 }
 }
 
-.tile {
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    border-radius: 16px;
+/* ---------------- TILE ---------------- */
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 12px;
-    box-sizing: border-box;
-
-    cursor: pointer;
-    position: relative;
-    color: white;
-    text-align: center;
-
-    overflow: hidden;
+.tile{
+aspect-ratio:1/1;
+border-radius:16px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:12px;
+color:white;
+cursor:pointer;
+position:relative;
 }
 
-.tile-icon {
-    width: 70%;
-    height: 70%;
-    max-width: 90px;
-    max-height: 90px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 8px;
+.tile-icon{
+width:70%;
+height:70%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:8px;
 }
 
-.tile img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-        
-.tile span {
-    font-size: clamp(16px, 2.2vw, 24px);
-    font-weight: 400;
-    margin-top: 2px;
-    margin-bottom: 6px;
-    z-index: 2;
-}
-        /* HELP GRID */
-        .grid.help-grid {
-            grid-template-columns: repeat(auto-fit, 327px);
-            justify-content: center;
-            gap: 20px;
-        }
-        .tile.red { 
-            background: var(--help-red); 
-            width: 327px; 
-            height: 327.34px; 
-            aspect-ratio: auto;
-            border-radius: 20px;
-            padding: 24px 20px 0px 20px;
-        }
-        .tile.red img { width: 90%; height: auto; max-height: 75%; margin-bottom: 0; }
-        .tile.red span { font-size: 28px; font-weight: 700; padding-bottom: 20px; }
-
-        .tile::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--hold-color);
-            opacity: 0; z-index: 1;
-            transition: opacity 3s linear;
-            pointer-events: none;
-        }
-        .tile.is-holding::before { opacity: 1; }
-        .tile img, .tile span { position: relative; z-index: 2; }
-
-        .tile.blue { background: var(--tile-blue); }
-        .tile.purple { background: var(--tile-purple); }
-        .tile.teal { background: var(--tile-teal); }
-        .tile.slate { background: var(--tile-slate); }
-        .tile.pink { background: var(--tile-pink); }
-.tile.add {
-    background: var(--tile-add);
-    border: 2px dashed rgba(255,255,255,0.2);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 8px;
-}
-        .tile.add span { margin-top: 0; padding-bottom: 0; transform: none; }
-
-.section-title {
-    font-size: 24px;
-    font-weight: 300;
-    color: var(--text-sub);
-    margin: 24px 0 16px 0;
+.tile img{
+width:100%;
+height:100%;
+object-fit:contain;
+pointer-events:none;
 }
 
-        /* Modals */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal-content {
-            background: var(--bg-header);
-            padding: 32px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
-            display: flex; flex-direction: column; gap: 20px;
-        }
-        .modal-title { margin: 0; font-size: 24px; font-weight: 700; color: var(--text-main); }
-        .modal-buttons { display: flex; flex-direction: column; gap: 12px; }
-        .modal-btn { padding: 16px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .btn-primary { background: var(--tile-blue); color: white; }
-        .btn-secondary { background: var(--tile-purple); color: white; }
-        .btn-danger { background: var(--help-red); color: white; }
-        .btn-cancel { background: var(--tile-slate); color: white; }
-        .modal-input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; color: white; font-size: 16px; }
-        
-        .info-list {
-            text-align: left;
-            color: var(--text-main);
-            margin: 0;
-            padding: 0 20px;
-            line-height: 1.6;
-        }
-        .info-list li {
-            margin-bottom: 10px;
-        }
+.tile span{
+font-size:clamp(16px,2vw,24px);
+}
 
-        /* Call Screen */
-        .call-container {
-            display: none; flex-direction: column; align-items: center; justify-content: flex-start;
-            padding-top: 60px; height: 70vh; text-align: center;
-        }
-        .call-name { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
-        .call-timer { font-size: 20px; color: var(--text-sub); margin-bottom: 50px; }
-        
-        .call-avatar-tile {
-            width: 281px; height: 278px; background: var(--help-red); border-radius: 185px;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 60px;
-            overflow: hidden;
-        }
-        .call-avatar-tile img { width: 180px; height: 180px; object-fit: contain; }
+.tile.blue{background:var(--tile-blue);}
+.tile.purple{background:var(--tile-purple);}
+.tile.teal{background:var(--tile-teal);}
+.tile.slate{background:var(--tile-slate);}
+.tile.pink{background:var(--tile-pink);}
 
-        .call-controls { display: flex; gap: 15px; align-items: center; }
-        
-        .call-btn-tile { 
-            width: 80px; height: 80px; border-radius: 12px; 
-            background: var(--tile-slate); border: none; color: white; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; cursor: pointer; 
-        }
-        .call-btn-tile.end { background: var(--help-red); transform: rotate(135deg); }
-     
-    </style>
+.tile.add{
+background:var(--tile-add);
+border:2px dashed rgba(255,255,255,0.2);
+}
+
+/* Hold animation */
+
+.tile::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:var(--hold-color);
+opacity:0;
+transition:opacity 3s linear;
+}
+
+.tile.is-holding::before{
+opacity:1;
+}
+
+/* ---------------- HELP GRID ---------------- */
+
+.grid.help-grid{
+grid-template-columns:repeat(auto-fit,327px);
+justify-content:center;
+gap:20px;
+}
+
+.tile.red{
+background:var(--help-red);
+width:327px;
+height:327px;
+border-radius:20px;
+}
+
+.tile.red img{
+width:90%;
+}
+
+/* ---------------- MODALS ---------------- */
+
+.modal-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.modal-content{
+background:var(--bg-header);
+padding:32px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+text-align:center;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.modal-title{
+margin:0;
+font-size:24px;
+font-weight:700;
+}
+
+.modal-buttons{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.modal-btn{
+padding:16px;
+border-radius:12px;
+border:none;
+font-weight:bold;
+cursor:pointer;
+font-size:16px;
+}
+
+.btn-primary{background:var(--tile-blue);color:white;}
+.btn-secondary{background:var(--tile-purple);color:white;}
+.btn-danger{background:var(--help-red);color:white;}
+.btn-cancel{background:var(--tile-slate);color:white;}
+
+.modal-input{
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.2);
+padding:12px;
+border-radius:8px;
+color:white;
+font-size:16px;
+}
+
+.info-list{
+text-align:left;
+margin:0;
+padding:0 20px;
+line-height:1.6;
+}
+
+.info-list li{
+margin-bottom:10px;
+}
+
+/* ---------------- CALL SCREEN ---------------- */
+
+.call-container{
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+padding-top:60px;
+height:70vh;
+text-align:center;
+}
+
+.call-name{
+font-size:36px;
+font-weight:800;
+margin-bottom:8px;
+}
+
+.call-timer{
+font-size:20px;
+color:var(--text-sub);
+margin-bottom:50px;
+}
+
+.call-avatar-tile{
+width:281px;
+height:278px;
+background:var(--help-red);
+border-radius:185px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:60px;
+overflow:hidden;
+}
+
+.call-avatar-tile img{
+width:180px;
+height:180px;
+object-fit:contain;
+}
+
+.call-controls{
+display:flex;
+gap:15px;
+align-items:center;
+}
+
+.call-btn-tile{
+width:80px;
+height:80px;
+border-radius:12px;
+background:var(--tile-slate);
+border:none;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+cursor:pointer;
+}
+
+.call-btn-tile.end{
+background:var(--help-red);
+transform:rotate(135deg);
+}
+
+</style>
 </head>
+
 <body data-theme="dark">
 
 <header>
+
 <button onclick="changeMode('help')" id="getHelpHeaderBtn">
-
-    <img src="icons/Get-help.svg" alt="Get Help" style="height:22px; width:auto;">
-    Get help
-
+<img src="icons/Get-help.svg" alt="Get Help">
+Get help
 </button>
-    
-    <img src="icons/Header.svg" alt="OpenVoice Header" class="header-logo">
 
-    <div class="toggle-group">
-        <button class="toggle-btn" onclick="setTheme('dark')" id="darkToggle">
-            <img src="icons/DM Activated.svg" alt="Dark Mode">
-        </button>
-        <button class="toggle-btn" onclick="setTheme('light')" id="lightToggle">
-            <img src="icons/LM Deactivated.svg" alt="Light Mode">
-        </button>
-    </div>
+<img src="icons/Header.svg" alt="OpenVoice Header" class="header-logo">
+
+<div class="toggle-group">
+<button class="toggle-btn" onclick="setTheme('dark')" id="darkToggle">
+<img src="icons/DM Activated.svg" alt="Dark Mode">
+</button>
+
+<button class="toggle-btn" onclick="setTheme('light')" id="lightToggle">
+<img src="icons/LM Deactivated.svg" alt="Light Mode">
+</button>
+</div>
+
 </header>
 
 <nav class="nav-bar">
-    <button class="tab active" data-mode="core" onclick="changeMode('core')">
-        <img src="icons/Sentence.svg" class="nav-icon" alt="">
-        Sentence building
-    </button>
 
-    <button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
-        <img src="icons/Feeling.svg" class="nav-icon" alt="">
-        I am feeling
-    </button>
+<button class="tab active" data-mode="core" onclick="changeMode('core')">
+<img src="icons/Sentence.svg" class="nav-icon">
+Sentence building
+</button>
 
-    <button class="tab" data-mode="want" onclick="changeMode('want')">
-        <img src="icons/Wants.svg" class="nav-icon" alt="">
-        I want
-    </button>
+<button class="tab" data-mode="feeling" onclick="changeMode('feeling')">
+<img src="icons/Feeling.svg" class="nav-icon">
+I am feeling
+</button>
 
-    <button class="btn-info-nav" onclick="openInfoModal()">
-        <img src="icons/Info.svg" class="nav-icon" alt="">
-    </button>
+<button class="tab" data-mode="want" onclick="changeMode('want')">
+<img src="icons/Wants.svg" class="nav-icon">
+I want
+</button>
+
+<button class="btn-info-nav" onclick="openInfoModal()">
+<img src="icons/Info.svg" class="nav-icon">
+</button>
+
 </nav>
 
 <main class="content">
-    <div class="phrase-bar" id="phrase-container">
-        <span id="phrase">I want to...</span>
-        <div style="cursor:pointer">
-            <span onclick="speakCurrentPhrase()">🔊</span>&nbsp;&nbsp;
-            <span onclick="clearP()">🗑️</span>
-        </div>
-    </div>
 
-    <div id="grid-root"></div>
+<div class="phrase-bar" id="phrase-container">
+<span id="phrase">I want to...</span>
+<div>
+<span onclick="speakCurrentPhrase()">🔊</span>
+&nbsp;&nbsp;
+<span onclick="clearP()">🗑️</span>
+</div>
+</div>
 
-    <div id="call-screen" class="call-container">
-        <div class="call-name" id="active-call-name">Emergency Call</div>
-        <div class="call-timer">00:03</div>
-        <div class="call-avatar-tile" id="active-call-avatar"></div>
-        <div class="call-controls">
-            <button class="call-btn-tile">🔊</button>
-            <button class="call-btn-tile">📹</button>
-            <button class="call-btn-tile">⌗</button>
-            <button class="call-btn-tile end" onclick="endCall()">📞</button>
-        </div>
-    </div>
+<div id="grid-root"></div>
+
+<div id="call-screen" class="call-container">
+<div class="call-name" id="active-call-name">Emergency Call</div>
+<div class="call-timer">00:03</div>
+<div class="call-avatar-tile" id="active-call-avatar"></div>
+<div class="call-controls">
+<button class="call-btn-tile">🔊</button>
+<button class="call-btn-tile">📹</button>
+<button class="call-btn-tile">⌗</button>
+<button class="call-btn-tile end" onclick="endCall()">📞</button>
+</div>
+</div>
+
 </main>
 
-<div id="editModal" class="modal-overlay">
-    <div class="modal-content">
-        <h2 class="modal-title" id="modalTileName">Edit Tile</h2>
-        <div class="modal-buttons">
-            <button class="modal-btn btn-primary" id="btnEditLabel">Edit Label</button>
-            <button class="modal-btn btn-secondary" id="btnEditIcon">Edit Icon</button>
-            <button class="modal-btn btn-danger" id="btnDeleteTile">Delete Tile</button>
-            <button class="modal-btn btn-cancel" onclick="closeModal('editModal')">Cancel</button>
-        </div>
-    </div>
-</div>
-
-<div id="addModal" class="modal-overlay">
-    <div class="modal-content">
-        <h2 class="modal-title">Add New Tile</h2>
-        <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
-            <label style="font-size: 14px; color: var(--text-sub);">Tile Label</label>
-            <input type="text" id="addLabelInput" class="modal-input" placeholder="e.g. Pizza">
-            <label style="font-size: 14px; color: var(--text-sub);">Tile Icon (Filename)</label>
-            <input type="text" id="addIconInput" class="modal-input" placeholder="e.g. Pizza.svg">
-        </div>
-        <div class="modal-buttons">
-            <button class="modal-btn btn-primary" onclick="processAddTile()">Add Tile</button>
-            <button class="modal-btn btn-cancel" onclick="closeModal('addModal')">Cancel</button>
-        </div>
-    </div>
-</div>
-
-<div id="infoModal" class="modal-overlay">
-    <div class="modal-content">
-        <h2 class="modal-title">Information</h2>
-        <ul class="info-list">
-            <li>Help / more info coming soon</li>
-            <li>Progressive onboarding coming soon</li>
-            <li>Haptic feedback coming soon</li>
-        </ul>
-        <div class="modal-buttons">
-            <button class="modal-btn btn-cancel" onclick="closeModal('infoModal')">Close</button>
-        </div>
-    </div>
-</div>
-
 <script>
-    const baseIconPath = 'icons/';
+
+ const baseIconPath = 'icons/';
 
     let mode = 'core';
     let holdTimer;
@@ -729,6 +775,8 @@ t.innerHTML = `
     function clearP() { document.getElementById('phrase').innerText = 'I want to...'; }
 
     render();
+
 </script>
+
 </body>
 </html>
