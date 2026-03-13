@@ -305,7 +305,7 @@ opacity:1;
 .grid.help-grid{
 grid-template-columns:repeat(auto-fit,327px);
 justify-content:center;
-gap:20px;
+gap:24px;
 }
 
 .tile.red{
@@ -713,10 +713,12 @@ I want
         root.innerHTML = '';
 
         vocab[mode].forEach((sec) => {
-            const title = document.createElement('div');
-            title.className = 'section-title';
-            title.innerText = sec.title;
-            root.appendChild(title);
+           if(mode !== 'help'){
+const title = document.createElement('div');
+title.className = 'section-title';
+title.innerText = sec.title;
+root.appendChild(title);
+}
 
             const grid = document.createElement('div');
             grid.className = (mode === 'help') ? 'grid help-grid' : 'grid';
