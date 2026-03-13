@@ -118,15 +118,18 @@ header {
     object-fit: contain;
 }
 
-        .nav-bar {
-            flex-wrap: wrap;
-            background: var(--bg-nav);
-            box-shadow: var(--nav-shadow);
-            width: 100%; display: flex;
-            padding: 12px 25px; box-sizing: border-box;
-            gap: 12px; align-items: center; transition: all 0.3s;
-    .tab {
-    flex: 0 0 auto;
+.nav-bar {
+    background: var(--bg-nav);
+    box-shadow: var(--nav-shadow);
+
+    width: 100%;
+    padding: 12px 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    overflow-x: auto;
 }
 
 .tab, .btn-info-nav {
