@@ -127,22 +127,18 @@ object-fit:contain;
 }
 /* ---------------- NAV ---------------- */
 
-.nav-bar {
-    background: var(--bg-nav);
-    box-shadow: var(--nav-shadow);
+.nav-bar{
+background:var(--bg-nav);
+box-shadow:var(--nav-shadow);
 
-    width: 100%;
-    padding: 12px 24px;
+display:flex;
+align-items:center;
+justify-content:space-between;
 
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
+padding:12px 24px;
 }
-
-.tab {
+.nav-tabs {
     display:flex;
-    align-items:center;
     gap:10px;
 
     padding:10px 24px;
@@ -172,9 +168,7 @@ object-fit:contain;
     height:26px;
     width:auto;
 }
-.btn-info-nav {
-
-margin-left:auto;
+.btn-info-nav{
 
 width:44px;
 height:44px;
@@ -488,6 +482,8 @@ Get help
 
 <nav class="nav-bar">
 
+<div class="nav-tabs">
+
 <button class="tab active" data-mode="core" onclick="changeMode('core')">
 <img src="icons/Sentence.svg" class="nav-icon">
 Sentence building
@@ -503,12 +499,13 @@ I am feeling
 I want
 </button>
 
+</div>
+
 <button class="btn-info-nav" onclick="openInfoModal()">
 <img src="icons/Info.svg" class="nav-icon">
 </button>
 
 </nav>
-
 <main class="content">
 
 <div class="phrase-bar" id="phrase-container">
