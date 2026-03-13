@@ -146,7 +146,7 @@ header {
 }
         .phrase-bar {
             background: var(--yellow-bar); color: #121827;
-            padding: 15px; border-radius: 8px; margin-bottom: 25px;
+            padding: 15px; border-radius: 8px; margin-bottom: 32px;
             display: flex; justify-content: space-between; font-weight: 600;
         }
 
@@ -165,7 +165,7 @@ header {
 }
 
 .tile {
-    aspect-ratio: 1 / 1.1;
+    aspect-ratio: 1 / 1;
     width: 100%;
     border-radius: 16px;
 
@@ -260,6 +260,7 @@ header {
         .tile.add span { margin-top: 0; padding-bottom: 0; transform: none; }
 
         .section-title { 
+            grid-column: 1 / -1:
             font-size: 24px; 
             font-weight: 300;
             color: var(--text-sub); 
