@@ -303,18 +303,18 @@ opacity:1;
 /* ---------------- HELP GRID ---------------- */
 
 .grid.help-grid{
-grid-template-columns:repeat(auto-fit,327px);
-justify-content:center;
+display:grid;
+grid-template-columns:repeat(2,1fr);
 gap:24px;
+max-width:700px;
+margin:auto;
 }
 
 .tile.red{
 background:var(--help-red);
-width:327px;
-height:327px;
 border-radius:20px;
+aspect-ratio:1/1;
 }
-
 .tile.red img{
 width:90%;
 }
