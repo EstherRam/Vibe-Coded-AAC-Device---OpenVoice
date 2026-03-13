@@ -149,10 +149,16 @@ header {
         /* GRID & TILE SIZES */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(8px, 1vw, 14px);
 }
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 10px; } }
+       @media (min-width: 768px) {
+
+.grid {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+}
 
 .tile {
      aspect-ratio: 1 / 1.2;
@@ -177,8 +183,8 @@ header {
 }
 
 .tile-icon {
-    width: 60%;
-    height: 60%;
+    width: 55%;
+    height: 55%;
     max-width: 90px;
     max-height: 90px;
 
@@ -313,18 +319,7 @@ header {
             font-size: 24px; cursor: pointer; 
         }
         .call-btn-tile.end { background: var(--help-red); transform: rotate(135deg); }
-        @media (min-width: 768px) {
-
-.grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-}
-
-.tile-icon {
-    max-width: 110px;
-    max-height: 110px;
-}
-
-}
+     
     </style>
 </head>
 <body data-theme="dark">
