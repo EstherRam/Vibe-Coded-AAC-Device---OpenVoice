@@ -71,97 +71,95 @@ justify-self:center;
 /* Get Help */
 
 #getHelpHeaderBtn {
-    position:absolute;
-    top:13px;
-    left:25px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
-    display:flex;
-    align-items:center;
-    gap:6px;
+    background: var(--help-red);
+    border: none;
+    color: white;
 
-    background:var(--help-red);
-    border:none;
-    color:white;
+    padding: clamp(6px, 1vw, 10px) clamp(12px, 2vw, 18px);
+    border-radius: 28px;
 
-    padding:6px 14px;
-    border-radius:28px;
+    font-size: 18px;
+    font-weight: 600;
 
-    font-size:18px;
-    font-weight:600;
-
-    cursor:pointer;
+    cursor: pointer;
+    white-space: nowrap;
 }
-#getHelpHeaderBtn img{
-height:18px;
+
+#getHelpHeaderBtn img {
+    height: clamp(16px, 2vw, 20px);
 }
 
 /* Toggles */
 
 .toggle-group {
-    position:absolute;
-    top:13px;
-    right:25px;
-
-    display:flex;
-    gap:7px;
+    display: flex;
+    gap: clamp(4px, 1vw, 8px);
 }
 
 .toggle-btn {
-    width:44px;
-    height:44px;
+    width: clamp(32px, 4vw, 40px);
+    height: clamp(32px, 4vw, 40px);
 
-    border-radius:12px;
-    border:none;
+    border-radius: 10px;
+    border: none;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    cursor:pointer;
-    background:transparent;
+    background: transparent;
+    cursor: pointer;
 }
 
 .toggle-btn img {
-    width:100%;
-    height:100%;
-    object-fit:contain;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
 }
-
 /* ---------------- NAV ---------------- */
 
 .nav-bar {
-    background:var(--bg-nav);
-    box-shadow:var(--nav-shadow);
+    background: var(--bg-nav);
+    box-shadow: var(--nav-shadow);
 
-    width:100%;
+    width: 100%;
+    padding: 12px 24px;
 
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-    padding:12px 25px;
-    gap:12px;
+    overflow-x: auto;
 }
 
 .tab {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-    padding:10px 24px;
+    padding: 10px 24px;
+    border-radius: 54px;
 
-    border-radius:54px;
-    border:none;
+    border: none;
+    background: var(--nav-inactive);
+    color: white;
 
-    background:var(--nav-inactive);
-    color:white;
+    font-weight: 600;
+    cursor: pointer;
 
-    font-weight:600;
-    cursor:pointer;
+    white-space: nowrap;
 
-    white-space:nowrap;
+    font-size: 18px;
+}
 
-    font-size:18px;
+@media (min-width:768px){
+.tab{
+    font-size:24px;
+}
 }
 
 @media (min-width:768px) {
@@ -176,19 +174,21 @@ height:18px;
 }
 
 .btn-info-nav {
-    margin-left:auto;
+    margin-left: auto;
 
-    width:48px;
-    height:48px;
+    width: 48px;
+    height: 48px;
 
-    border-radius:50%;
-    border:none;
+    flex-shrink: 0;
 
-    background:var(--nav-inactive);
+    border-radius: 50%;
+    border: none;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    background: var(--nav-inactive);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tab.active[data-mode="core"]{background:var(--tile-blue);}
@@ -216,28 +216,25 @@ font-weight:600;
 }
 
 .section-title {
-    font-size:clamp(22px,2.5vw,24px);
-    font-weight:300;
-
-    color:var(--text-sub);
-
-    margin:24px 0 16px 0;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-sub);
+    margin: 24px 0 16px 0;
 }
 
 /* ---------------- GRID ---------------- */
 
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:24px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
 }
 
-@media(min-width:768px){
+@media (min-width:768px){
 .grid{
-grid-template-columns:repeat(5,1fr);
+    grid-template-columns: repeat(5,1fr);
 }
 }
-
 /* ---------------- TILE ---------------- */
 
 .tile{
@@ -253,20 +250,21 @@ cursor:pointer;
 position:relative;
 }
 
-.tile-icon{
-width:70%;
-height:70%;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:8px;
+.tile-icon {
+    width: 70%;
+    height: 70%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 8px;
 }
 
-.tile img{
-width:100%;
-height:100%;
-object-fit:contain;
-pointer-events:none;
+.tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .tile span{
