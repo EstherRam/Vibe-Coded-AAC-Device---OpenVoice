@@ -128,10 +128,13 @@ header {
         .tab.active[data-mode="want"] { background: var(--tile-purple); }
         .tab.active[data-mode="help"] { background: var(--help-red); }
 
-        .content {
-            max-width: 1000px; margin: 0 auto; padding: 24.63px 25.4px;
-        }
-
+    .content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    box-sizing: border-box;
+}
         .phrase-bar {
             background: var(--yellow-bar); color: #121827;
             padding: 15px; border-radius: 8px; margin-bottom: 25px;
@@ -139,15 +142,16 @@ header {
         }
 
         /* GRID & TILE SIZES */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 7.7px; 
-        }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+}
         @media (min-width: 768px) { .grid { grid-template-columns: repeat(5, 1fr); gap: 10px; } }
 
 .tile {
-    aspect-ratio: 104.69 / 126.25;
+     aspect-ratio: 1 / 1.2;
+    width: 100%;
     border-radius: 12px;
 
     display: flex;
