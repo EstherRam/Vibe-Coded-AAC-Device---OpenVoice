@@ -67,27 +67,56 @@ header {
     position: absolute;
     top: 13px;
     left: 25px;
+
+    background: var(--help-red);
+    border: none;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 14px;
+    border-radius: 28px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+#getHelpHeaderBtn img {
+    height: 18px;
 }
 
 .toggle-group {
     position: absolute;
     top: 13px;
     right: 25px;
+
     display: flex;
-    gap: 7px;
+    gap: 6px;
 }
-        .toggle-btn {
-            width: 44px; height: 44px; border-radius: 12px;
-            border: none;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; background: transparent; transition: opacity 0.2s;
-        }
-        
-        .toggle-btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+
+.toggle-btn {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 10px;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    cursor: pointer;
+}
+
+.toggle-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
 
         .nav-bar {
             flex-wrap: wrap;
@@ -96,9 +125,8 @@ header {
             width: 100%; display: flex;
             padding: 12px 25px; box-sizing: border-box;
             gap: 12px; align-items: center; transition: all 0.3s;
-        }
-        .tab {
-    flex: 1 1 160px;
+    .tab {
+    flex: 0 0 auto;
 }
 
 .tab, .btn-info-nav {
@@ -329,8 +357,7 @@ header {
 <body data-theme="dark">
 
 <header>
-   <button onclick="changeMode('help')" id="getHelpHeaderBtn"
-style="background:var(--help-red); border:none; color:white; padding:10px 24px; border-radius:30px; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:8px;">
+<button onclick="changeMode('help')" id="getHelpHeaderBtn">
 
     <img src="icons/Get-help.svg" alt="Get Help" style="height:22px; width:auto;">
     Get help
