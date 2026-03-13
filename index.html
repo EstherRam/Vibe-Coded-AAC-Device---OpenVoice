@@ -101,16 +101,21 @@ header {
     flex: 1 1 160px;
 }
 
-        .tab, .btn-info-nav {
-            padding: 10px 24px; border-radius: 54px; border: none;
-            background: var(--nav-inactive); color: white;
-            font-weight: 600;
-            cursor: pointer; 
-            font-size: clamp(14px, 2.2w, 22px);
-            transition: background 0.2s;
-            display: flex; align-items: center; justify-content: center;
-        }
-
+.tab, .btn-info-nav {
+    padding: 10px 24px;
+    border-radius: 54px;
+    border: none;
+    background: var(--nav-inactive);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 18px;
+}
+@media (min-width: 768px) {
+    .tab, .btn-info-nav {
+        font-size: 24px;
+    }
+}
         .nav-icon {
             height: clamp(18px, 2.5vw, 28px);
             width: auto;
@@ -136,7 +141,7 @@ header {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 24px;
     box-sizing: border-box;
 }
         .phrase-bar {
@@ -149,7 +154,7 @@ header {
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(8px, 1vw, 14px);
+    gap: 24px;
 }
        @media (min-width: 768px) {
 
@@ -258,7 +263,7 @@ header {
             font-size: 24px; 
             font-weight: 300;
             color: var(--text-sub); 
-            margin: 25px 0 10px; 
+            margin: 24px 0 16px 0; 
         }
 
         /* Modals */
